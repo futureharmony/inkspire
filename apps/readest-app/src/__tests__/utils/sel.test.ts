@@ -574,6 +574,14 @@ describe('sel utilities', () => {
       document.body.removeChild(container);
     });
 
+    it('selects a CJK word at the caret with a specific language', async () => {
+      const { container, node } = withTextNode('阅读测试内容');
+      const { getWordRangeAt } = await import('@/utils/sel');
+      const range = getWordRangeAt(node, 1, 'zh');
+      expect(range && range.toString().length > 0).toBe(true);
+      document.body.removeChild(container);
+    });
+
     it('returns null on whitespace / non-word positions', async () => {
       const { container, node } = withTextNode('   ');
       const { getWordRangeAt } = await import('@/utils/sel');

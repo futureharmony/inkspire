@@ -597,6 +597,10 @@
   "Highlight Colors": "สีไฮไลต์",
   "Pagination": "การแบ่งหน้า",
   "Disable Double Tap": "ปิดการแตะสองครั้ง",
+  "Double Click to Select Word": "ดับเบิลคลิกเพื่อเลือกคำ",
+  "Double Tap to Select Word": "ดับเบิลแตะเพื่อเลือกคำ",
+  "Behavior After Selection": "การทำงานหลังเลือกคำ",
+  "Open Toolbar": "เปิดแถบเครื่องมือ",
   "Tap to Paginate": "แตะเพื่อแบ่งหน้า",
   "Click to Paginate": "คลิกเพื่อแบ่งหน้า",
   "Tap Both Sides": "แตะทั้งสองด้าน",
@@ -1776,8 +1780,5 @@
   "Granularity": "ระดับความละเอียด",
   "Refresh Page": "รีเฟรชหน้า",
   "Recently read": "อ่านล่าสุด",
-  "Show recently read": "แสดงรายการอ่านล่าสุด",
-  "Find:": "ค้นหา:",
-  "Enable rule": "เปิดใช้กฎ",
-  "Disable rule": "ปิดใช้กฎ"
+  "Show recently read": "แสดงรายการอ่านล่าสุด"
 }

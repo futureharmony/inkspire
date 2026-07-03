@@ -599,6 +599,10 @@
   "Disable Double Tap": "禁用雙擊",
   "Tap to Paginate": "點擊翻頁",
   "Click to Paginate": "點擊翻頁",
+  "Double Click to Select Word": "雙擊選中單詞",
+  "Double Tap to Select Word": "雙擊選中單詞",
+  "Behavior After Selection": "詞彙選中後行為",
+  "Open Toolbar": "打開工具列",
   "Tap Both Sides": "點擊兩側翻頁",
   "Click Both Sides": "點擊兩側翻頁",
   "Swap Tap Sides": "交換點擊區域",
@@ -1776,8 +1780,5 @@
   "Granularity": "粒度",
   "Refresh Page": "重新整理頁面",
   "Recently read": "最近閱讀",
-  "Show recently read": "顯示最近閱讀",
-  "Find:": "尋找：",
-  "Enable rule": "啟用規則",
-  "Disable rule": "停用規則"
+  "Show recently read": "顯示最近閱讀"
 }

@@ -1,3 +1,5 @@
+import { isJiebaReady, tokenizeZh } from '@/utils/jieba';
+
 export interface Frame {
   top: number;
   left: number;
@@ -35,6 +37,7 @@ export interface TextSelection {
   // Native Android selection handles were suppressed for this selection
   // (Blink hyphen bounds bug, issue #1553) — the app draws its own handles.
   handlesSuppressed?: boolean;
+  trigger?: 'doubleclick' | 'pointer';
 }
 
 const frameRect = (frame: Frame, rect?: Rect, sx = 1, sy = 1) => {
@@ -479,37 +482,105 @@ export const snapRangeToWords = (range: Range): void => {
 // contains it — the same word a native double-click would select. Returns null
 // when the position isn't inside word-like text (whitespace, punctuation, a
 // non-text node). CJK is segmented via Intl.Segmenter, matching snapRangeToWords.
-export const getWordRangeAt = (node: Node, offset: number): Range | null => {
-  if (node.nodeType !== Node.TEXT_NODE) return null;
-  if (typeof Intl === 'undefined' || !Intl.Segmenter) return null;
+export const getWordRangeAt = (node: Node, offset: number, lang?: string): Range | null => {
+  if (node.nodeType !== Node.TEXT_NODE) {
+    console.log('[getWordRangeAt] Node is not TEXT_NODE, type:', node.nodeType);
+    return null;
+  }
   const text = node.textContent ?? '';
-  if (!text) return null;
+  if (!text) {
+    console.log('[getWordRangeAt] text is empty');
+    return null;
+  }
   const doc = node.ownerDocument;
-  if (!doc) return null;
-  const segmenter = new Intl.Segmenter(undefined, { granularity: 'word' });
-  for (const seg of segmenter.segment(text)) {
-    if (!seg.isWordLike) continue;
-    const start = seg.index;
-    const end = seg.index + seg.segment.length;
-    // The caret falls inside this word, or sits exactly on either edge (a
-    // caret-from-point at a word boundary should still select the adjacent word).
-    if (offset >= start && offset <= end) {
-      const range = doc.createRange();
-      try {
-        range.setStart(node, start);
-        range.setEnd(node, end);
-      } catch {
-        return null;
-      }
-      return range.collapsed ? null : range;
+  if (!doc) {
+    console.log('[getWordRangeAt] no ownerDocument');
+    return null;
+  }
+
+  // Determine locale and language override
+  let locale = lang;
+  if (!locale || locale.startsWith('en')) {
+    if (/[\u4e00-\u9fa5]/.test(text)) {
+      locale = 'zh';
+    } else if (/[\u3040-\u309f\u30a0-\u30ff]/.test(text)) {
+      locale = 'ja';
+    } else if (/[\uac00-\ud7af]/.test(text)) {
+      locale = 'ko';
     }
   }
+
+  console.log(
+    `[getWordRangeAt] offset: ${offset}, text: "${text}", detected locale: "${locale}" (original: "${lang}")`,
+  );
+
+  // Primary CJK parser: Jieba-wasm (if initialized and ready)
+  const jiebaReady = isJiebaReady();
+  console.log(`[getWordRangeAt] isJiebaReady: ${jiebaReady}`);
+  if (locale?.startsWith('zh') && jiebaReady) {
+    try {
+      const tokens = tokenizeZh(text);
+      console.log(`[getWordRangeAt] Jieba tokens count: ${tokens.length}`);
+      for (const tok of tokens) {
+        // Exclude punctuation or whitespace from the selection
+        if (/[\s\p{P}]/u.test(tok.word)) continue;
+        const start = tok.start;
+        const end = tok.end;
+        if (offset >= start && offset <= end) {
+          const range = doc.createRange();
+          try {
+            range.setStart(node, start);
+            range.setEnd(node, end);
+          } catch (e) {
+            console.error('[getWordRangeAt] Jieba range set error:', e);
+            return null;
+          }
+          console.log(`[getWordRangeAt] Jieba matched: "${tok.word}" (${start}-${end})`);
+          return range.collapsed ? null : range;
+        }
+      }
+    } catch (e) {
+      console.warn('Jieba tokenization failed in getWordRangeAt:', e);
+    }
+  }
+
+  // Fallback: Intl.Segmenter
+  const hasIntl = typeof Intl !== 'undefined' && typeof Intl.Segmenter !== 'undefined';
+  console.log(`[getWordRangeAt] Intl.Segmenter support: ${hasIntl}`);
+  if (hasIntl) {
+    const segmenter = new Intl.Segmenter(locale || undefined, { granularity: 'word' });
+    const segments = Array.from(segmenter.segment(text));
+    console.log(`[getWordRangeAt] Intl segments count: ${segments.length}`);
+    for (const seg of segments) {
+      if (!seg.isWordLike) continue;
+      const start = seg.index;
+      const end = seg.index + seg.segment.length;
+      if (offset >= start && offset <= end) {
+        const range = doc.createRange();
+        try {
+          range.setStart(node, start);
+          range.setEnd(node, end);
+        } catch (e) {
+          console.error('[getWordRangeAt] Intl range set error:', e);
+          return null;
+        }
+        console.log(`[getWordRangeAt] Intl matched: "${seg.segment}" (${start}-${end})`);
+        return range.collapsed ? null : range;
+      }
+    }
+  }
+  console.log('[getWordRangeAt] No match found');
   return null;
 };
 
 // The word range under a point (in `doc` viewport coordinates), like a native
 // double-click. Returns null when the point isn't on word-like text.
-export const getWordRangeFromPoint = (doc: Document, x: number, y: number): Range | null => {
+export const getWordRangeFromPoint = (
+  doc: Document,
+  x: number,
+  y: number,
+  lang?: string,
+): Range | null => {
   let node: Node | null = null;
   let offset = 0;
   if (doc.caretPositionFromPoint) {
@@ -526,7 +597,7 @@ export const getWordRangeFromPoint = (doc: Document, x: number, y: number): Rang
     }
   }
   if (!node) return null;
-  return getWordRangeAt(node, offset);
+  return getWordRangeAt(node, offset, lang);
 };
 
 // --- Android hyphenation selection-bounds bug (issue #1553) -----------------

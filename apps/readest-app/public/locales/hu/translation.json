@@ -934,6 +934,10 @@
   "Swap Tap Sides": "Koppintási oldalak cseréje",
   "Swap Click Sides": "Kattintási oldalak cseréje",
   "Disable Double Tap": "Dupla koppintás letiltása",
+  "Double Click to Select Word": "Dupla kattintás a szó kijelöléséhez",
+  "Double Tap to Select Word": "Dupla koppintás a szó kijelöléséhez",
+  "Behavior After Selection": "Kijelölés utáni viselkedés",
+  "Open Toolbar": "Eszköztár megnyitása",
   "Disable Double Click": "Dupla kattintás letiltása",
   "Show Page Navigation Buttons": "Oldalnavigációs gombok megjelenítése",
   "Annotation Tools": "Jegyzetelési eszközök",
@@ -1809,8 +1813,5 @@
   "Granularity": "Részletesség",
   "Refresh Page": "Oldal frissítése",
   "Recently read": "Nemrég olvasott",
-  "Show recently read": "Nemrég olvasottak megjelenítése",
-  "Find:": "Keresés:",
-  "Enable rule": "Szabály engedélyezése",
-  "Disable rule": "Szabály letiltása"
+  "Show recently read": "Nemrég olvasottak megjelenítése"
 }

@@ -857,6 +857,10 @@
   "Swap Tap Sides": "החלף צדדי הקשה",
   "Swap Click Sides": "החלף צדדי לחיצה",
   "Disable Double Tap": "השבת הקשה כפולה",
+  "Double Click to Select Word": "לחיצה כפולה לבחירת מילה",
+  "Double Tap to Select Word": "הקשה כפולה לבחירת מילה",
+  "Behavior After Selection": "פעולה לאחר בחירה",
+  "Open Toolbar": "פתח סרגל כלים",
   "Disable Double Click": "השבת לחיצה כפולה",
   "Show Page Navigation Buttons": "הצג כפתורי ניווט בעמוד",
   "Annotation Tools": "כלי הערות",
@@ -1842,8 +1846,5 @@
   "Granularity": "רמת פירוט",
   "Refresh Page": "רענן דף",
   "Recently read": "נקראו לאחרונה",
-  "Show recently read": "הצגת ספרים שנקראו לאחרונה",
-  "Find:": "חיפוש:",
-  "Enable rule": "הפעל כלל",
-  "Disable rule": "השבת כלל"
+  "Show recently read": "הצגת ספרים שנקראו לאחרונה"
 }

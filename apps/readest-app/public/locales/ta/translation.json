@@ -602,6 +602,10 @@
   "Highlight Colors": "முத்திரை நிறங்கள்",
   "Pagination": "பக்கமிடுதல்",
   "Disable Double Tap": "இரட்டை தொடுதலை முடக்கு",
+  "Double Click to Select Word": "வார்த்தையைத் தேர்ந்தெடுக்க இருமுறை கிளிக் செய்யவும்",
+  "Double Tap to Select Word": "வார்த்தையைத் தேர்ந்தெடுக்க இருமுறை தட்டவும்",
+  "Behavior After Selection": "தேர்ந்தெடுத்த பின் செயல்",
+  "Open Toolbar": "கருவிப்பட்டையைத் திற",
   "Tap to Paginate": "பக்கம் மாற்ற தொடுங்கள்",
   "Click to Paginate": "பக்கம் மாற்ற கிளிக் செய்யவும்",
   "Tap Both Sides": "இரு பக்கங்களையும் தொடுங்கள்",
@@ -1809,8 +1813,5 @@
   "Granularity": "நுண்மை",
   "Refresh Page": "பக்கத்தைப் புதுப்பி",
   "Recently read": "சமீபத்தில் படித்தவை",
-  "Show recently read": "சமீபத்தில் படித்தவற்றைக் காட்டு",
-  "Find:": "தேடு:",
-  "Enable rule": "விதியை இயக்கு",
-  "Disable rule": "விதியை முடக்கு"
+  "Show recently read": "சமீபத்தில் படித்தவற்றைக் காட்டு"
 }

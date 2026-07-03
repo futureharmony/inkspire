@@ -36,6 +36,7 @@ import {
   getTextFromRange,
 } from '@/utils/sel';
 import { eventDispatcher } from '@/utils/event';
+import { initJieba } from '@/utils/jieba';
 import { findTocItemBS } from '@/services/nav';
 import { throttle } from '@/utils/throttle';
 import {
@@ -640,6 +641,15 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [bookKey, view]);
 
+  // Preload jieba-wasm for Chinese books so word segmentation is ready on double click
+  useEffect(() => {
+    if (primaryLang?.toLowerCase().startsWith('zh')) {
+      initJieba().catch((e) => {
+        console.warn('Failed to initialize jieba-wasm for word selection:', e);
+      });
+    }
+  }, [primaryLang]);
+
   // Word Lens: open the dictionary popup for a tapped glossed word. The tap is
   // detected in the iframe click handler (iframeEventHandlers.ts), which sends
   // the gloss <ruby> element here. We synthesize a selection over the base word
@@ -959,12 +969,50 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
       setProofreadPopupPosition(proofreadPopupPos);
       setTrianglePosition(triangPos);
 
-      const { enableAnnotationQuickActions, annotationQuickAction } = viewSettings;
+      const { enableAnnotationQuickActions, annotationQuickAction, doubleClickSelectionBehavior } =
+        viewSettings;
+      const doubleClickBehavior = doubleClickSelectionBehavior || 'toolbar';
+
       if (wantWordLensDict) {
         // Route through handleDictionary so a Word Lens gloss tap honours the
         // dictionary settings (system dictionary vs the in-app popup) — same
         // as the selection-toolbar and instant-quick-action dictionary paths.
         handleDictionary();
+      } else if (selection.trigger === 'doubleclick' && doubleClickBehavior !== 'toolbar') {
+        switch (doubleClickBehavior) {
+          case 'copy':
+            handleCopy(false);
+            handleDismissPopupAndSelection();
+            break;
+          case 'highlight':
+            handleHighlight();
+            handleDismissPopupAndSelection();
+            break;
+          case 'annotate':
+            handleAnnotate();
+            break;
+          case 'search':
+            handleSearch();
+            break;
+          case 'dictionary':
+            handleDictionary();
+            break;
+          case 'translate':
+            handleTranslation();
+            break;
+          case 'tts':
+            handleSpeakText(true);
+            break;
+          case 'proofread':
+            handleProofread();
+            break;
+          case 'share':
+            handleShare();
+            break;
+          default:
+            handleShowAnnotPopup();
+            break;
+        }
       } else if (enableAnnotationQuickActions && annotationQuickAction && isTextSelected.current) {
         handleQuickAction();
       } else {

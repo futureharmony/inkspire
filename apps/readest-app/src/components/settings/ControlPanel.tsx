@@ -47,6 +47,9 @@ const ControlPanel: React.FC<SettingsPanelPanelProp> = ({ bookKey, onRegisterRes
   const [fullscreenClickArea, setFullscreenClickArea] = useState(viewSettings.fullscreenClickArea);
   const [swapClickArea, setSwapClickArea] = useState(viewSettings.swapClickArea);
   const [isDisableDoubleClick, setIsDisableDoubleClick] = useState(viewSettings.disableDoubleClick);
+  const [doubleClickSelectionBehavior, setDoubleClickSelectionBehavior] = useState(
+    viewSettings.doubleClickSelectionBehavior || 'toolbar',
+  );
   const [enableAnnotationQuickActions, setEnableAnnotationQuickActions] = useState(
     viewSettings.enableAnnotationQuickActions,
   );
@@ -87,6 +90,7 @@ const ControlPanel: React.FC<SettingsPanelPanelProp> = ({ bookKey, onRegisterRes
       allowScript: setAllowScript,
       fullscreenClickArea: setFullscreenClickArea,
       disableDoubleClick: setIsDisableDoubleClick,
+      doubleClickSelectionBehavior: setDoubleClickSelectionBehavior,
       enableAnnotationQuickActions: setEnableAnnotationQuickActions,
       copyToNotebook: setCopyToNotebook,
     });
@@ -174,6 +178,18 @@ const ControlPanel: React.FC<SettingsPanelPanelProp> = ({ bookKey, onRegisterRes
     saveViewSettings(envConfig, bookKey, 'disableDoubleClick', isDisableDoubleClick, false, false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isDisableDoubleClick]);
+
+  useEffect(() => {
+    saveViewSettings(
+      envConfig,
+      bookKey,
+      'doubleClickSelectionBehavior',
+      doubleClickSelectionBehavior,
+      false,
+      false,
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [doubleClickSelectionBehavior]);
 
   useEffect(() => {
     saveViewSettings(envConfig, bookKey, 'fullscreenClickArea', fullscreenClickArea, false, false);
@@ -292,6 +308,21 @@ const ControlPanel: React.FC<SettingsPanelPanelProp> = ({ bookKey, onRegisterRes
     ];
   };
 
+  const getDoubleClickSelectionOptions = () => {
+    return [
+      {
+        value: 'toolbar',
+        label: _('Open Toolbar'),
+      },
+      ...annotationToolQuickActions
+        .filter((button) => button.type !== 'share' || canShare)
+        .map((button) => ({
+          value: button.type,
+          label: _(button.label),
+        })),
+    ];
+  };
+
   const handleSelectAnnotationQuickAction = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const action = event.target.value as typeof annotationQuickAction;
     setAnnotationQuickAction(action);
@@ -369,11 +400,31 @@ const ControlPanel: React.FC<SettingsPanelPanelProp> = ({ bookKey, onRegisterRes
           data-setting-id='settings.control.swapClickSides'
         />
         <SettingsSwitchRow
-          label={appService?.isMobileApp ? _('Disable Double Tap') : _('Disable Double Click')}
-          checked={isDisableDoubleClick}
+          label={
+            appService?.isMobileApp
+              ? _('Double Tap to Select Word')
+              : _('Double Click to Select Word')
+          }
+          checked={!isDisableDoubleClick}
           onChange={() => setIsDisableDoubleClick(!isDisableDoubleClick)}
           data-setting-id='settings.control.disableDoubleClick'
         />
+        {!isDisableDoubleClick && (
+          <SettingsRow
+            label={_('Behavior After Selection')}
+            data-setting-id='settings.control.doubleClickSelectionBehavior'
+          >
+            <SettingsSelect
+              value={doubleClickSelectionBehavior}
+              onChange={(e) => {
+                const val = e.target.value;
+                setDoubleClickSelectionBehavior(val);
+              }}
+              ariaLabel={_('Behavior After Selection')}
+              options={getDoubleClickSelectionOptions()}
+            />
+          </SettingsRow>
+        )}
         <SettingsSwitchRow
           label={_('Show Page Navigation Buttons')}
           checked={showPaginationButtons}

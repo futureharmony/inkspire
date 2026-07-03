@@ -602,6 +602,10 @@
   "Highlight Colors": "Χρώματα επισήμανσης",
   "Pagination": "Σελιδοποίηση",
   "Disable Double Tap": "Απενεργοποίηση διπλού ταπ",
+  "Double Click to Select Word": "Διπλό κλικ για επιλογή λέξης",
+  "Double Tap to Select Word": "Διπλό πάτημα για επιλογή λέξης",
+  "Behavior After Selection": "Συμπεριφορά μετά την επιλογή",
+  "Open Toolbar": "Άνοιγμα γραμμής εργαλείων",
   "Tap to Paginate": "Ταπ για σελιδοποίηση",
   "Click to Paginate": "Κλικ για σελιδοποίηση",
   "Tap Both Sides": "Ταπ και στις δύο πλευρές",
@@ -1809,8 +1813,5 @@
   "Granularity": "Διαβάθμιση",
   "Refresh Page": "Ανανέωση σελίδας",
   "Recently read": "Πρόσφατα αναγνωσμένα",
-  "Show recently read": "Εμφάνιση πρόσφατα αναγνωσμένων",
-  "Find:": "Εύρεση:",
-  "Enable rule": "Ενεργοποίηση κανόνα",
-  "Disable rule": "Απενεργοποίηση κανόνα"
+  "Show recently read": "Εμφάνιση πρόσφατα αναγνωσμένων"
 }

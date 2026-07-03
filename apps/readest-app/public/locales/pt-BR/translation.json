@@ -1051,6 +1051,10 @@
   "Swap Tap Sides": "Trocar lados do toque",
   "Swap Click Sides": "Trocar lados do clique",
   "Disable Double Tap": "Desativar toque duplo",
+  "Double Click to Select Word": "Duplo clique para selecionar palavra",
+  "Double Tap to Select Word": "Duplo toque para selecionar palavra",
+  "Behavior After Selection": "Ação após seleção",
+  "Open Toolbar": "Abrir barra de ferramentas",
   "Disable Double Click": "Desativar clique duplo",
   "Show Page Navigation Buttons": "Botões de navegação",
   "Annotation Tools": "Ferramentas de anotação",
@@ -1842,8 +1846,5 @@
   "Granularity": "Granularidade",
   "Refresh Page": "Atualizar página",
   "Recently read": "Lidos recentemente",
-  "Show recently read": "Mostrar lidos recentemente",
-  "Find:": "Localizar:",
-  "Enable rule": "Ativar regra",
-  "Disable rule": "Desativar regra"
+  "Show recently read": "Mostrar lidos recentemente"
 }

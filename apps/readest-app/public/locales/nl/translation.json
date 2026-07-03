@@ -602,6 +602,10 @@
   "Highlight Colors": "Markeerkleuren",
   "Pagination": "Paginering",
   "Disable Double Tap": "Schakel Dubbel Tikken Uit",
+  "Double Click to Select Word": "Dubbelklik om woord te selecteren",
+  "Double Tap to Select Word": "Dubbeltik om woord te selecteren",
+  "Behavior After Selection": "Gedrag na selectie",
+  "Open Toolbar": "Werkbalk openen",
   "Tap to Paginate": "Tik om te Pagineren",
   "Click to Paginate": "Klik om te Pagineren",
   "Tap Both Sides": "Tik op Beide Zijden",
@@ -1809,8 +1813,5 @@
   "Granularity": "Granulariteit",
   "Refresh Page": "Pagina vernieuwen",
   "Recently read": "Onlangs gelezen",
-  "Show recently read": "Onlangs gelezen tonen",
-  "Find:": "Zoeken:",
-  "Enable rule": "Regel inschakelen",
-  "Disable rule": "Regel uitschakelen"
+  "Show recently read": "Onlangs gelezen tonen"
 }

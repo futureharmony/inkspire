@@ -602,6 +602,10 @@
   "Highlight Colors": "ඉස්මතු වර්ණ",
   "Pagination": "පිටුගත කිරීම",
   "Disable Double Tap": "දෙවරක් ටැප් කිරීම අබල කරන්න",
+  "Double Click to Select Word": "වචනයක් තේරීමට දෙවරක් ක්ලික් කරන්න",
+  "Double Tap to Select Word": "වචනයක් තේරීමට දෙවරක් ටැප් කරන්න",
+  "Behavior After Selection": "තේරීමෙන් පසු ක්‍රියාව",
+  "Open Toolbar": "මෙවලම් තීරුව විවෘත කරන්න",
   "Tap to Paginate": "පිටුගත කිරීමට ටැප් කරන්න",
   "Click to Paginate": "පිටුගත කිරීමට ක්ලික් කරන්න",
   "Tap Both Sides": "පැත්ත දෙකම ටැප් කරන්න",
@@ -1809,8 +1813,5 @@
   "Granularity": "විස්තර මට්ටම",
   "Refresh Page": "පිටුව නැවුම් කරන්න",
   "Recently read": "මෑතකදී කියවූ",
-  "Show recently read": "මෑතකදී කියවූ ඒවා පෙන්වන්න",
-  "Find:": "සොයන්න:",
-  "Enable rule": "නියමය සක්‍රීය කරන්න",
-  "Disable rule": "නියමය අක්‍රීය කරන්න"
+  "Show recently read": "මෑතකදී කියවූ ඒවා පෙන්වන්න"
 }

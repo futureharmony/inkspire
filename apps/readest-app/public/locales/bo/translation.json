@@ -597,6 +597,10 @@
   "Highlight Colors": "མདོག་ཚད་ཀྱི་བསྡུར་བ།",
   "Pagination": "ཤོག་གདོང་།",
   "Disable Double Tap": "བརྒྱབ་གདོང་གཉིས་མ་འགྱོད།",
+  "Double Click to Select Word": "མཐེབ་གནོན་གཉིས་རྡེག་གིས་ཚིག་འདེམས་པ།",
+  "Double Tap to Select Word": "མཐེབ་གནོན་གཉིས་རྡེག་གིས་ཚིག་འདེམས་པ།",
+  "Behavior After Selection": "བདམས་པའི་རྗེས་ཀྱི་བྱ་སྤྱོད།",
+  "Open Toolbar": "ལག་ཆའི་སྒྲོམ་ཁ་ཕྱེ་བ།",
   "Tap to Paginate": "ཤོག་གདོང་ལ་ཐོག་འགྲོ།",
   "Click to Paginate": "ཤོག་གདོང་ལ་ཁྱེད་ལུས་འགྲོ།",
   "Tap Both Sides": "གཡས་གཉིས་ལ་ཐོག་འགྲོ།",
@@ -1770,8 +1774,5 @@
   "Granularity": "ཞིབ་ཕྲའི་ཚད",
   "Refresh Page": "ཤོག་ལྷེ་བསྐྱར་གསོ།",
   "Recently read": "ཉེ་ཆར་བཀླགས་པ།",
-  "Show recently read": "ཉེ་ཆར་བཀླགས་པ་སྟོན་པ།",
-  "Find:": "འཚོལ་བཤེར།:",
-  "Enable rule": "སྲིད་སྒྲིག་སྤྱོད་པ།",
-  "Disable rule": "སྲིད་སྒྲིག་སྒོ་བརྒྱབ།"
+  "Show recently read": "ཉེ་ཆར་བཀླགས་པ་སྟོན་པ།"
 }

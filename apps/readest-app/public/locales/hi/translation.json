@@ -602,6 +602,10 @@
   "Highlight Colors": "हाइलाइट रंग",
   "Pagination": "पृष्ठांकन",
   "Disable Double Tap": "डबल टैप अक्षम करें",
+  "Double Click to Select Word": "शब्द चुनने के लिए डबल क्लिक करें",
+  "Double Tap to Select Word": "शब्द चुनने के लिए डबल टैप करें",
+  "Behavior After Selection": "चयन के बाद का व्यवहार",
+  "Open Toolbar": "टूलबार खोलें",
   "Tap to Paginate": "पृष्ठांकन के लिए टैप करें",
   "Click to Paginate": "पृष्ठांकन के लिए क्लिक करें",
   "Tap Both Sides": "दोनों पक्षों पर टैप करें",
@@ -1809,8 +1813,5 @@
   "Granularity": "सूक्ष्मता",
   "Refresh Page": "पृष्ठ ताज़ा करें",
   "Recently read": "हाल ही में पढ़े गए",
-  "Show recently read": "हाल ही में पढ़े गए दिखाएँ",
-  "Find:": "खोजें:",
-  "Enable rule": "नियम सक्षम करें",
-  "Disable rule": "नियम अक्षम करें"
+  "Show recently read": "हाल ही में पढ़े गए दिखाएँ"
 }

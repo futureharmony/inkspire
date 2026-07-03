@@ -507,6 +507,10 @@
   "Swap Tap Sides": "Tukar Sisi Ketukan",
   "Swap Click Sides": "Tukar Sisi Klik",
   "Disable Double Tap": "Lumpuhkan Ketuk Dua Kali",
+  "Double Click to Select Word": "Dwi-klik untuk memilih perkataan",
+  "Double Tap to Select Word": "Dwi-ketuk untuk memilih perkataan",
+  "Behavior After Selection": "Tindakan selepas pemilihan",
+  "Open Toolbar": "Buka bar alat",
   "Disable Double Click": "Lumpuhkan Klik Dua Kali",
   "Animation": "Animasi",
   "Paging Animation": "Animasi Halaman",
@@ -1776,8 +1780,5 @@
   "Granularity": "Granulariti",
   "Refresh Page": "Segarkan Halaman",
   "Recently read": "Baru dibaca",
-  "Show recently read": "Tunjukkan baru dibaca",
-  "Find:": "Cari:",
-  "Enable rule": "Dayakan peraturan",
-  "Disable rule": "Nyahdayakan peraturan"
+  "Show recently read": "Tunjukkan baru dibaca"
 }

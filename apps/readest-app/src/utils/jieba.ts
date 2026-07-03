@@ -1,4 +1,4 @@
-import init, { cut } from 'jieba-wasm';
+import init, { cut, tokenize } from 'jieba-wasm';
 
 let initialized = false;
 let initPromise: Promise<void> | null = null;
@@ -25,4 +25,8 @@ const cutZh = (text: string): string[] => {
   return cut(text, true);
 };
 
-export { initJieba, isJiebaReady, cutZh };
+const tokenizeZh = (text: string): { word: string; start: number; end: number }[] => {
+  return tokenize(text, 'default', true);
+};
+
+export { initJieba, isJiebaReady, cutZh, tokenizeZh };

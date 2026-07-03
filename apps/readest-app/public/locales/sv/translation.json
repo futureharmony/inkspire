@@ -602,6 +602,10 @@
   "Highlight Colors": "Markeringsfärger",
   "Pagination": "Pagination",
   "Disable Double Tap": "Inaktivera dubbeltryck",
+  "Double Click to Select Word": "Dubbelklicka för att markera ord",
+  "Double Tap to Select Word": "Dubbeltryck för att markera ord",
+  "Behavior After Selection": "Beteende efter markering",
+  "Open Toolbar": "Öppna verktygsfältet",
   "Tap to Paginate": "Tryck för att bläddra",
   "Click to Paginate": "Klicka för att bläddra",
   "Tap Both Sides": "Tryck på båda sidor",
@@ -1809,8 +1813,5 @@
   "Granularity": "Detaljnivå",
   "Refresh Page": "Uppdatera sidan",
   "Recently read": "Nyligen lästa",
-  "Show recently read": "Visa nyligen lästa",
-  "Find:": "Sök:",
-  "Enable rule": "Aktivera regel",
-  "Disable rule": "Inaktivera regel"
+  "Show recently read": "Visa nyligen lästa"
 }

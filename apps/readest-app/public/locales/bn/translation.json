@@ -602,6 +602,10 @@
   "Highlight Colors": "হাইলাইট রঙ",
   "Pagination": "পৃষ্ঠা বিন্যাস",
   "Disable Double Tap": "ডাবল ট্যাপ অক্ষম করুন",
+  "Double Click to Select Word": "শব্দ নির্বাচন করতে ডাবল ক্লিক করুন",
+  "Double Tap to Select Word": "শব্দ নির্বাচন করতে ডাবল ট্যাপ করুন",
+  "Behavior After Selection": "নির্বাচনের পরবর্তী আচরণ",
+  "Open Toolbar": "টুলবার খুলুন",
   "Tap to Paginate": "পৃষ্ঠায় যেতে ট্যাপ করুন",
   "Click to Paginate": "পৃষ্ঠায় যেতে ক্লিক করুন",
   "Tap Both Sides": "দুই পাশে ট্যাপ করুন",
@@ -1809,8 +1813,5 @@
   "Granularity": "সূক্ষ্মতা",
   "Refresh Page": "পৃষ্ঠা রিফ্রেশ করুন",
   "Recently read": "সম্প্রতি পড়া",
-  "Show recently read": "সম্প্রতি পড়া দেখান",
-  "Find:": "খুঁজুন:",
-  "Enable rule": "নিয়ম সক্রিয় করুন",
-  "Disable rule": "নিয়ম নিষ্ক্রিয় করুন"
+  "Show recently read": "সম্প্রতি পড়া দেখান"
 }

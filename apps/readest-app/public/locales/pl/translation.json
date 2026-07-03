@@ -612,6 +612,10 @@
   "Highlight Colors": "Kolory wyróżnień",
   "Pagination": "Stronicowanie",
   "Disable Double Tap": "Wyłącz podwójne dotknięcie",
+  "Double Click to Select Word": "Dwukrotne kliknięcie, aby zaznaczyć słowo",
+  "Double Tap to Select Word": "Dwukrotne dotknięcie, aby zaznaczyć słowo",
+  "Behavior After Selection": "Zachowanie po zaznaczeniu",
+  "Open Toolbar": "Otwórz pasek narzędzi",
   "Tap to Paginate": "Dotknij, aby stronicować",
   "Click to Paginate": "Kliknij, aby stronicować",
   "Tap Both Sides": "Dotknij obu stron",
@@ -1875,8 +1879,5 @@
   "Granularity": "Ziarnistość",
   "Refresh Page": "Odśwież stronę",
   "Recently read": "Ostatnio czytane",
-  "Show recently read": "Pokaż ostatnio czytane",
-  "Find:": "Znajdź:",
-  "Enable rule": "Włącz regułę",
-  "Disable rule": "Wyłącz regułę"
+  "Show recently read": "Pokaż ostatnio czytane"
 }

@@ -89,6 +89,7 @@ export const useTextSelector = (
   // native touchmove): an auto-turn engagement signal alongside the caret, and
   // the finger position the Android hyphen repair rebuilds from.
   const pointerPos = useRef<{ x: number; y: number } | null>(null);
+  const activeSelectionRangeRef = useRef<Range | null>(null);
 
   // Android hyphen selection-bounds bug (#1553): the selection anchor captured
   // at the first selectionchange of a touch gesture, plus whether that initial
@@ -138,9 +139,11 @@ export const useTextSelector = (
     index: number,
     rebuildRange = false,
     handlesSuppressed = false,
+    trigger?: 'doubleclick' | 'pointer',
   ) => {
     isTextSelected.current = true;
     const range = sel.getRangeAt(0);
+    activeSelectionRangeRef.current = range;
     if (rebuildRange) {
       sel.removeAllRanges();
       sel.addRange(range);
@@ -154,6 +157,7 @@ export const useTextSelector = (
       range,
       index,
       handlesSuppressed,
+      trigger,
     });
   };
 
@@ -429,18 +433,100 @@ export const useTextSelector = (
   // gesture), where the dblclick is detected from two quick taps.
   const handleDoubleClick = async (doc: Document, index: number, x: number, y: number) => {
     if (isInstantAnnotating.current) return;
+    const viewSettings = getViewSettings(bookKey);
+    console.log(
+      '[handleDoubleClick] x:',
+      x,
+      'y:',
+      y,
+      'disableDoubleClick:',
+      viewSettings?.disableDoubleClick,
+    );
+    if (viewSettings?.disableDoubleClick) return;
+
+    const lang = doc.documentElement?.lang || undefined;
+    console.log('[handleDoubleClick] lang from doc:', lang);
+    const wordRange = getWordRangeFromPoint(doc, x, y, lang);
+    console.log('[handleDoubleClick] wordRange text:', wordRange?.toString() || 'null');
     const sel = doc.getSelection();
-    if (!sel || isValidSelection(sel)) return;
-    const range = getWordRangeFromPoint(doc, x, y);
-    if (!range) return;
-    guardProgrammaticSelection();
-    sel.removeAllRanges();
-    sel.addRange(range);
-    releaseProgrammaticSelection();
-    // No isUpToPopup latch here: a double-tap is two taps both consumed by the
-    // double-click detection, so no trailing single-click follows that would
-    // dismiss the popup — the next deliberate tap should dismiss it normally.
-    await makeSelection(sel, index, false);
+
+    if (wordRange && sel) {
+      const existingRange = activeSelectionRangeRef.current;
+      console.log(
+        '[handleDoubleClick] activeSelectionRangeRef:',
+        existingRange?.toString() || 'null',
+      );
+      if (existingRange) {
+        // Check if clicked word is inside the existing selection
+        const isInside =
+          existingRange.compareBoundaryPoints(Range.START_TO_START, wordRange) <= 0 &&
+          existingRange.compareBoundaryPoints(Range.END_TO_END, wordRange) >= 0;
+
+        if (isInside) {
+          guardProgrammaticSelection();
+          sel.removeAllRanges();
+          releaseProgrammaticSelection();
+          handleDismissPopup();
+          isTextSelected.current = false;
+          activeSelectionRangeRef.current = null;
+          return;
+        }
+
+        let isAdjacent = false;
+        let combinedRange: Range | null = null;
+
+        try {
+          const gapRange = doc.createRange();
+          const isWordBefore =
+            wordRange.compareBoundaryPoints(Range.END_TO_START, existingRange) <= 0;
+
+          if (isWordBefore) {
+            gapRange.setStart(wordRange.endContainer, wordRange.endOffset);
+            gapRange.setEnd(existingRange.startContainer, existingRange.startOffset);
+          } else {
+            gapRange.setStart(existingRange.endContainer, existingRange.endOffset);
+            gapRange.setEnd(wordRange.startContainer, wordRange.startOffset);
+          }
+
+          const gapText = gapRange.toString();
+          const containsLettersOrNumbers = /\p{L}|\p{N}/u.test(gapText);
+          if (!containsLettersOrNumbers) {
+            isAdjacent = true;
+            combinedRange = doc.createRange();
+            if (isWordBefore) {
+              combinedRange.setStart(wordRange.startContainer, wordRange.startOffset);
+              combinedRange.setEnd(existingRange.endContainer, existingRange.endOffset);
+            } else {
+              combinedRange.setStart(existingRange.startContainer, existingRange.startOffset);
+              combinedRange.setEnd(wordRange.endContainer, wordRange.endOffset);
+            }
+          }
+        } catch (e) {
+          console.warn('Failed to calculate adjacency:', e);
+        }
+
+        guardProgrammaticSelection();
+        sel.removeAllRanges();
+        if (isAdjacent && combinedRange) {
+          sel.addRange(combinedRange);
+        } else {
+          sel.addRange(wordRange);
+        }
+        releaseProgrammaticSelection();
+        await makeSelection(sel, index, false, false, 'doubleclick');
+      } else {
+        if (sel.toString()) {
+          // Native selection already exists (desktop double-click path).
+          // The pointerup path handles it; do not double-fire.
+          return;
+        }
+        guardProgrammaticSelection();
+        sel.removeAllRanges();
+        sel.addRange(wordRange);
+        releaseProgrammaticSelection();
+        await makeSelection(sel, index, false, false, 'doubleclick');
+      }
+    }
   };
 
   const handlePointerUp = async (doc: Document, index: number, ev?: PointerEvent) => {
@@ -578,6 +664,7 @@ export const useTextSelector = (
         handleDismissPopup();
         isTextSelected.current = false;
       }
+      activeSelectionRangeRef.current = null;
       selectionPosition.current = null;
     }
   };
@@ -634,6 +721,7 @@ export const useTextSelector = (
       if (isTextSelected.current) {
         handleDismissPopup();
         isTextSelected.current = false;
+        activeSelectionRangeRef.current = null;
         view?.deselect();
         return true;
       }

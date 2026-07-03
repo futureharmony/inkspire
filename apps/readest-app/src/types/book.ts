@@ -199,6 +199,7 @@ export interface BookLayout {
   fullscreenClickArea: boolean;
   swapClickArea: boolean;
   disableDoubleClick: boolean;
+  doubleClickSelectionBehavior?: string;
   volumeKeysToFlip: boolean;
   maxColumnCount: number;
   maxInlineSize: number;

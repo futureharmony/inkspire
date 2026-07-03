@@ -242,7 +242,7 @@ export const usePagination = (
             }
             const viewStartX = windowStartX + viewRect.left;
             const viewCenterX = viewStartX + viewRect.width / 2;
-            const consumed = eventDispatcher.dispatchSync('iframe-single-click');
+            const consumed = eventDispatcher.dispatchSync('iframe-single-click', msg.data);
             if (!consumed) {
               const centerStartX = viewStartX + viewRect.width * 0.375;
               const centerEndX = viewStartX + viewRect.width * 0.625;
