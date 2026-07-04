@@ -323,6 +323,29 @@ const ControlPanel: React.FC<SettingsPanelPanelProp> = ({ bookKey, onRegisterRes
     ];
   };
 
+  const getBehaviorsList = (behaviorStr: string): string[] => {
+    if (!behaviorStr || behaviorStr === 'toolbar') return [];
+    return behaviorStr.split(',').filter(Boolean);
+  };
+
+  const toggleBehavior = (behavior: string) => {
+    const current = getBehaviorsList(doubleClickSelectionBehavior);
+    let next: string[];
+    if (current.includes(behavior)) {
+      next = current.filter((b) => b !== behavior);
+    } else {
+      next = [...current, behavior];
+    }
+    const nextVal = next.length === 0 ? 'toolbar' : next.join(',');
+    setDoubleClickSelectionBehavior(nextVal);
+  };
+
+  const handleToggleToolbar = () => {
+    const isToolbar = doubleClickSelectionBehavior === 'toolbar' || !doubleClickSelectionBehavior;
+    const nextVal = isToolbar ? 'dictionary' : 'toolbar';
+    setDoubleClickSelectionBehavior(nextVal);
+  };
+
   const handleSelectAnnotationQuickAction = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const action = event.target.value as typeof annotationQuickAction;
     setAnnotationQuickAction(action);
@@ -410,20 +433,35 @@ const ControlPanel: React.FC<SettingsPanelPanelProp> = ({ bookKey, onRegisterRes
           data-setting-id='settings.control.disableDoubleClick'
         />
         {!isDisableDoubleClick && (
-          <SettingsRow
-            label={_('Behavior After Selection')}
-            data-setting-id='settings.control.doubleClickSelectionBehavior'
-          >
-            <SettingsSelect
-              value={doubleClickSelectionBehavior}
-              onChange={(e) => {
-                const val = e.target.value;
-                setDoubleClickSelectionBehavior(val);
-              }}
-              ariaLabel={_('Behavior After Selection')}
-              options={getDoubleClickSelectionOptions()}
+          <>
+            <SettingsSwitchRow
+              label={_('Open Toolbar on Selection')}
+              checked={doubleClickSelectionBehavior === 'toolbar'}
+              onChange={handleToggleToolbar}
+              data-setting-id='settings.control.doubleClickSelectionBehavior.toolbar'
             />
-          </SettingsRow>
+            {doubleClickSelectionBehavior !== 'toolbar' && (
+              <div className='my-2 flex flex-col border-l border-base-200 ml-4 pl-4'>
+                {getDoubleClickSelectionOptions()
+                  .filter((opt) => opt.value !== 'toolbar')
+                  .map((opt) => (
+                    <SettingsRow
+                      key={opt.value}
+                      asLabel
+                      className='ps-2'
+                      label={<span className='text-sm text-base-content/85'>{opt.label}</span>}
+                    >
+                      <input
+                        type='checkbox'
+                        className='toggle toggle-sm'
+                        checked={getBehaviorsList(doubleClickSelectionBehavior).includes(opt.value)}
+                        onChange={() => toggleBehavior(opt.value)}
+                      />
+                    </SettingsRow>
+                  ))}
+              </div>
+            )}
+          </>
         )}
         <SettingsSwitchRow
           label={_('Show Page Navigation Buttons')}

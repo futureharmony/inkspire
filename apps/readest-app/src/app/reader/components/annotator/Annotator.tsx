@@ -148,6 +148,7 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
   const [showDeepLPopup, setShowDeepLPopup] = useState(false);
   const [showProofreadPopup, setShowProofreadPopup] = useState(false);
   const [trianglePosition, setTrianglePosition] = useState<Position>();
+  const [translatorTrianglePosition, setTranslatorTrianglePosition] = useState<Position>();
   const [annotPopupPosition, setAnnotPopupPosition] = useState<Position>();
   const [dictPopupPosition, setDictPopupPosition] = useState<Position>();
   const [translatorPopupPosition, setTranslatorPopupPosition] = useState<Position>();
@@ -246,8 +247,49 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
       dictPopupHeight,
       popupPadding,
     );
+    const doubleClickBehavior = viewSettings.doubleClickSelectionBehavior || 'toolbar';
+    const isMultiPopup =
+      (selection.trigger === 'doubleclick' &&
+        doubleClickBehavior.includes('dictionary') &&
+        doubleClickBehavior.includes('translate')) ||
+      (showDictionaryPopup && showDeepLPopup);
+
+    let triangPosOpposite = triangPos;
+    const oppositeDir = triangPos.dir
+      ? (
+          {
+            up: 'down',
+            down: 'up',
+            left: 'right',
+            right: 'left',
+          } as const
+        )[triangPos.dir]
+      : undefined;
+
+    if (isMultiPopup && oppositeDir) {
+      let wordHeight = 24;
+      let wordWidth = 48;
+      if (selection.range) {
+        const rangeRect = selection.range.getBoundingClientRect();
+        wordHeight = rangeRect.height;
+        wordWidth = rangeRect.width;
+      }
+
+      const oppositePoint = { ...triangPos.point };
+      if (oppositeDir === 'down') {
+        oppositePoint.y = triangPos.point.y + wordHeight + 18;
+      } else if (oppositeDir === 'up') {
+        oppositePoint.y = triangPos.point.y - wordHeight - 18;
+      } else if (oppositeDir === 'right') {
+        oppositePoint.x = triangPos.point.x + wordWidth + 12;
+      } else if (oppositeDir === 'left') {
+        oppositePoint.x = triangPos.point.x - wordWidth - 12;
+      }
+      triangPosOpposite = { point: oppositePoint, dir: oppositeDir };
+    }
+
     const transPopupPos = getPopupPosition(
-      triangPos,
+      isMultiPopup ? triangPosOpposite : triangPos,
       rect,
       transPopupWidth,
       transPopupHeight,
@@ -266,8 +308,25 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
     setTranslatorPopupPosition(transPopupPos);
     setProofreadPopupPosition(proofreadPopupPos);
     setTrianglePosition(triangPos);
+    setTranslatorTrianglePosition(isMultiPopup ? triangPosOpposite : triangPos);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selection, bookKey, viewSettings.vertical]);
+  }, [
+    selection,
+    bookKey,
+    viewSettings.vertical,
+    viewSettings.doubleClickSelectionBehavior,
+    showDictionaryPopup,
+    showDeepLPopup,
+    dictPopupWidth,
+    dictPopupHeight,
+    transPopupWidth,
+    transPopupHeight,
+    annotPopupWidth,
+    annotPopupHeight,
+    proofreadPopupWidth,
+    proofreadPopupHeight,
+    osPlatform,
+  ]);
 
   useEffect(() => {
     const highlightStyle = settings.globalReadSettings.highlightStyle;
@@ -948,8 +1007,49 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
         dictPopupHeight,
         popupPadding,
       );
+      const doubleClickBehavior = viewSettings.doubleClickSelectionBehavior || 'toolbar';
+      const isMultiPopup =
+        (selection.trigger === 'doubleclick' &&
+          doubleClickBehavior.includes('dictionary') &&
+          doubleClickBehavior.includes('translate')) ||
+        (showDictionaryPopup && showDeepLPopup);
+
+      let triangPosOpposite = triangPos;
+      const oppositeDir = triangPos.dir
+        ? (
+            {
+              up: 'down',
+              down: 'up',
+              left: 'right',
+              right: 'left',
+            } as const
+          )[triangPos.dir]
+        : undefined;
+
+      if (isMultiPopup && oppositeDir) {
+        let wordHeight = 24;
+        let wordWidth = 48;
+        if (selection.range) {
+          const rangeRect = selection.range.getBoundingClientRect();
+          wordHeight = rangeRect.height;
+          wordWidth = rangeRect.width;
+        }
+
+        const oppositePoint = { ...triangPos.point };
+        if (oppositeDir === 'down') {
+          oppositePoint.y = triangPos.point.y + wordHeight + 18;
+        } else if (oppositeDir === 'up') {
+          oppositePoint.y = triangPos.point.y - wordHeight - 18;
+        } else if (oppositeDir === 'right') {
+          oppositePoint.x = triangPos.point.x + wordWidth + 12;
+        } else if (oppositeDir === 'left') {
+          oppositePoint.x = triangPos.point.x - wordWidth - 12;
+        }
+        triangPosOpposite = { point: oppositePoint, dir: oppositeDir };
+      }
+
       const transPopupPos = getPopupPosition(
-        triangPos,
+        isMultiPopup ? triangPosOpposite : triangPos,
         rect,
         transPopupWidth,
         transPopupHeight,
@@ -968,10 +1068,9 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
       setTranslatorPopupPosition(transPopupPos);
       setProofreadPopupPosition(proofreadPopupPos);
       setTrianglePosition(triangPos);
+      setTranslatorTrianglePosition(isMultiPopup ? triangPosOpposite : triangPos);
 
-      const { enableAnnotationQuickActions, annotationQuickAction, doubleClickSelectionBehavior } =
-        viewSettings;
-      const doubleClickBehavior = doubleClickSelectionBehavior || 'toolbar';
+      const { enableAnnotationQuickActions, annotationQuickAction } = viewSettings;
 
       if (wantWordLensDict) {
         // Route through handleDictionary so a Word Lens gloss tap honours the
@@ -979,39 +1078,47 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
         // as the selection-toolbar and instant-quick-action dictionary paths.
         handleDictionary();
       } else if (selection.trigger === 'doubleclick' && doubleClickBehavior !== 'toolbar') {
-        switch (doubleClickBehavior) {
-          case 'copy':
-            handleCopy(false);
-            handleDismissPopupAndSelection();
-            break;
-          case 'highlight':
-            handleHighlight();
-            handleDismissPopupAndSelection();
-            break;
-          case 'annotate':
-            handleAnnotate();
-            break;
-          case 'search':
-            handleSearch();
-            break;
-          case 'dictionary':
-            handleDictionary();
-            break;
-          case 'translate':
-            handleTranslation();
-            break;
-          case 'tts':
-            handleSpeakText(true);
-            break;
-          case 'proofread':
-            handleProofread();
-            break;
-          case 'share':
-            handleShare();
-            break;
-          default:
-            handleShowAnnotPopup();
-            break;
+        const behaviors = doubleClickBehavior.split(',').filter(Boolean);
+        let shouldDismiss = false;
+
+        for (const behavior of behaviors) {
+          switch (behavior) {
+            case 'copy':
+              handleCopy(false);
+              shouldDismiss = true;
+              break;
+            case 'highlight':
+              handleHighlight();
+              shouldDismiss = true;
+              break;
+            case 'annotate':
+              handleAnnotate();
+              break;
+            case 'search':
+              handleSearch();
+              break;
+            case 'dictionary':
+              handleDictionary();
+              break;
+            case 'translate':
+              handleTranslation();
+              break;
+            case 'tts':
+              handleSpeakText(true);
+              break;
+            case 'proofread':
+              handleProofread();
+              break;
+            case 'share':
+              handleShare();
+              break;
+            default:
+              break;
+          }
+        }
+
+        if (shouldDismiss) {
+          handleDismissPopupAndSelection();
         }
       } else if (enableAnnotationQuickActions && annotationQuickAction && isTextSelected.current) {
         handleQuickAction();
@@ -1020,7 +1127,7 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selection, bookKey]);
+  }, [selection, bookKey, showDictionaryPopup, showDeepLPopup]);
 
   // Index live annotations by the CFI spine prefix (the chapter id) so
   // each page turn only scans the bucket for the current chapter rather
@@ -1782,11 +1889,11 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
             />
           );
         })()}
-      {showDeepLPopup && trianglePosition && translatorPopupPosition && (
+      {showDeepLPopup && translatorTrianglePosition && translatorPopupPosition && (
         <TranslatorPopup
           text={selection?.text as string}
           position={translatorPopupPosition}
-          trianglePosition={trianglePosition}
+          trianglePosition={translatorTrianglePosition}
           popupWidth={transPopupWidth}
           popupHeight={transPopupHeight}
           onDismiss={handleDismissPopupAndSelection}
