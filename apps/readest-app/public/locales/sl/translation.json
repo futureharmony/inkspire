@@ -897,10 +897,6 @@
   "Swap Tap Sides": "Zamenjaj strani za tapkanje",
   "Swap Click Sides": "Zamenjaj strani za klike",
   "Disable Double Tap": "Onemogoči dvojni tap",
-  "Double Click to Select Word": "Dvojni klik za izbiro besede",
-  "Double Tap to Select Word": "Dvojni tap za izbiro besede",
-  "Behavior After Selection": "Vedenje po izbiri",
-  "Open Toolbar": "Odpri orodno vrstico",
   "Disable Double Click": "Onemogoči dvojni klik",
   "Show Page Navigation Buttons": "Prikaži gumbe za navigacijo po straneh",
   "Annotation Tools": "Orodja za opombe",
@@ -1879,5 +1875,9 @@
   "Granularity": "Granularnost",
   "Refresh Page": "Osveži stran",
   "Recently read": "Nedavno prebrano",
-  "Show recently read": "Pokaži nedavno prebrano"
+  "Show recently read": "Pokaži nedavno prebrano",
+  "Find:": "Najdi:",
+  "Enable rule": "Omogoči pravilo",
+  "Disable rule": "Onemogoči pravilo",
+  "Progress Read": "Napredek branja"
 }

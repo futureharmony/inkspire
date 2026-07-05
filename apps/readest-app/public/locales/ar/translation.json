@@ -622,10 +622,6 @@
   "Highlight Colors": "ألوان التمييز",
   "Pagination": "التقسيم إلى صفحات",
   "Disable Double Tap": "تعطيل النقر المزدوج",
-  "Double Click to Select Word": "النقر المزدوج لتحديد كلمة",
-  "Double Tap to Select Word": "الضغط المزدوج لتحديد كلمة",
-  "Behavior After Selection": "السلوك بعد التحديد",
-  "Open Toolbar": "فتح شريط الأدوات",
   "Tap to Paginate": "اضغط للتقسيم إلى صفحات",
   "Click to Paginate": "انقر للتقسيم إلى صفحات",
   "Tap Both Sides": "اضغط على كلا الجانبين",
@@ -1945,5 +1941,9 @@
   "Granularity": "الدقة",
   "Refresh Page": "تحديث الصفحة",
   "Recently read": "المقروءة مؤخرًا",
-  "Show recently read": "إظهار المقروءة مؤخرًا"
+  "Show recently read": "إظهار المقروءة مؤخرًا",
+  "Find:": "بحث:",
+  "Enable rule": "تفعيل القاعدة",
+  "Disable rule": "تعطيل القاعدة",
+  "Progress Read": "تقدم القراءة"
 }

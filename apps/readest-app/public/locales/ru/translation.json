@@ -612,10 +612,6 @@
   "Highlight Colors": "Цвета выделения",
   "Pagination": "Пагинация",
   "Disable Double Tap": "Отключить двойной тап",
-  "Double Click to Select Word": "Двойной клик для выделения слова",
-  "Double Tap to Select Word": "Двойной тап для выделения слова",
-  "Behavior After Selection": "Действие после выделения",
-  "Open Toolbar": "Открыть панель инструментов",
   "Tap to Paginate": "Тапните, чтобы разбить на страницы",
   "Click to Paginate": "Нажмите, чтобы разбить на страницы",
   "Tap Both Sides": "Тапните обе стороны",
@@ -1879,5 +1875,9 @@
   "Granularity": "Детализация",
   "Refresh Page": "Обновить страницу",
   "Recently read": "Недавно прочитанные",
-  "Show recently read": "Показывать недавно прочитанные"
+  "Show recently read": "Показывать недавно прочитанные",
+  "Find:": "Найти:",
+  "Enable rule": "Включить правило",
+  "Disable rule": "Отключить правило",
+  "Progress Read": "Прогресс чтения"
 }

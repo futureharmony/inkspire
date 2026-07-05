@@ -923,10 +923,6 @@
   "Swap Tap Sides": "Schimbă părțile pentru apăsare",
   "Swap Click Sides": "Schimbă părțile de clic",
   "Disable Double Tap": "Dezactivează dubla apăsare",
-  "Double Click to Select Word": "Dublu clic pentru a selecta cuvântul",
-  "Double Tap to Select Word": "Dublă apăsare pentru a selecta cuvântul",
-  "Behavior After Selection": "Comportament după selecție",
-  "Open Toolbar": "Deschide bara de instrumente",
   "Disable Double Click": "Dezactivează dublu clic",
   "Show Page Navigation Buttons": "Afișează butoanele de navigare pe pagină",
   "Annotation Tools": "Instrumente de adnotare",
@@ -1846,5 +1842,9 @@
   "Granularity": "Granularitate",
   "Refresh Page": "Reîmprospătează pagina",
   "Recently read": "Citite recent",
-  "Show recently read": "Afișează citite recent"
+  "Show recently read": "Afișează citite recent",
+  "Find:": "Găsește:",
+  "Enable rule": "Activează regula",
+  "Disable rule": "Dezactivează regula",
+  "Progress Read": "Progresul citirii"
 }

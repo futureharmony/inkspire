@@ -597,10 +597,6 @@
   "Highlight Colors": "Màu nổi bật",
   "Pagination": "Phân trang",
   "Disable Double Tap": "Vô hiệu hóa chạm hai lần",
-  "Double Click to Select Word": "Nhấp đúp để chọn từ",
-  "Double Tap to Select Word": "Chạm đúp để chọn từ",
-  "Behavior After Selection": "Hành động sau khi chọn",
-  "Open Toolbar": "Mở thanh công cụ",
   "Tap to Paginate": "Chạm để phân trang",
   "Click to Paginate": "Nhấp để phân trang",
   "Tap Both Sides": "Chạm vào cả hai bên",
@@ -1780,5 +1776,9 @@
   "Granularity": "Mức độ chi tiết",
   "Refresh Page": "Làm mới trang",
   "Recently read": "Đã đọc gần đây",
-  "Show recently read": "Hiển thị mục đã đọc gần đây"
+  "Show recently read": "Hiển thị mục đã đọc gần đây",
+  "Find:": "Tìm:",
+  "Enable rule": "Bật quy tắc",
+  "Disable rule": "Tắt quy tắc",
+  "Progress Read": "Tiến độ đọc"
 }

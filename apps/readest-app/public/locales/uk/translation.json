@@ -612,10 +612,6 @@
   "Highlight Colors": "Кольори виділення",
   "Pagination": "Розбиття на сторінки",
   "Disable Double Tap": "Вимкнути подвійне натискання",
-  "Double Click to Select Word": "Подвійний клік для виділення слова",
-  "Double Tap to Select Word": "Подвійний тап для виділення слова",
-  "Behavior After Selection": "Дія після виділення",
-  "Open Toolbar": "Відкрити панель інструментів",
   "Tap to Paginate": "Натисніть, щоб розбити на сторінки",
   "Click to Paginate": "Клікніть, щоб розбити на сторінки",
   "Tap Both Sides": "Натискати на обидві сторони",
@@ -1879,5 +1875,9 @@
   "Granularity": "Деталізація",
   "Refresh Page": "Оновити сторінку",
   "Recently read": "Нещодавно прочитані",
-  "Show recently read": "Показувати нещодавно прочитані"
+  "Show recently read": "Показувати нещодавно прочитані",
+  "Find:": "Знайти:",
+  "Enable rule": "Увімкнути правило",
+  "Disable rule": "Вимкнути правило",
+  "Progress Read": "Проґрес читання"
 }

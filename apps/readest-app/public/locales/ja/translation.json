@@ -597,10 +597,6 @@
   "Highlight Colors": "ハイライトカラー",
   "Pagination": "ページネーション",
   "Disable Double Tap": "ダブルタップを無効にする",
-  "Double Click to Select Word": "ダブルクリックして単語を選択",
-  "Double Tap to Select Word": "ダブルタップして単語を選択",
-  "Behavior After Selection": "選択後の動作",
-  "Open Toolbar": "ツールバーを開く",
   "Tap to Paginate": "タップしてページを切り替える",
   "Click to Paginate": "クリックしてページを切り替える",
   "Tap Both Sides": "両側をタップ",
@@ -1780,5 +1776,9 @@
   "Granularity": "粒度",
   "Refresh Page": "ページを更新",
   "Recently read": "最近読んだ本",
-  "Show recently read": "最近読んだ本を表示"
+  "Show recently read": "最近読んだ本を表示",
+  "Find:": "検索：",
+  "Enable rule": "ルールを有効化",
+  "Disable rule": "ルールを無効化",
+  "Progress Read": "読書進捗"
 }

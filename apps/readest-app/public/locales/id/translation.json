@@ -597,10 +597,6 @@
   "Highlight Colors": "Warna Sorotan",
   "Pagination": "Paginasi",
   "Disable Double Tap": "Nonaktifkan Ketuk Ganda",
-  "Double Click to Select Word": "Klik ganda untuk memilih kata",
-  "Double Tap to Select Word": "Ketuk ganda untuk memilih kata",
-  "Behavior After Selection": "Tindakan setelah pemilihan",
-  "Open Toolbar": "Buka bilah alat",
   "Tap to Paginate": "Ketuk untuk Paginasi",
   "Click to Paginate": "Klik untuk Paginasi",
   "Tap Both Sides": "Ketuk Kedua Sisi",
@@ -1780,5 +1776,9 @@
   "Granularity": "Granularitas",
   "Refresh Page": "Segarkan Halaman",
   "Recently read": "Baru dibaca",
-  "Show recently read": "Tampilkan baru dibaca"
+  "Show recently read": "Tampilkan baru dibaca",
+  "Find:": "Cari:",
+  "Enable rule": "Aktifkan aturan",
+  "Disable rule": "Nonaktifkan aturan",
+  "Progress Read": "Progres Membaca"
 }

@@ -602,10 +602,6 @@
   "Highlight Colors": "Vurgu Renkleri",
   "Pagination": "Sayfalama",
   "Disable Double Tap": "Çift Dokunmayı Devre Dışı Bırak",
-  "Double Click to Select Word": "Kelime seçmek için çift tıklayın",
-  "Double Tap to Select Word": "Kelime seçmek için çift dokunun",
-  "Behavior After Selection": "Seçim sonrası eylem",
-  "Open Toolbar": "Araç çubuğunu aç",
   "Tap to Paginate": "Sayfalamak için Dokunun",
   "Click to Paginate": "Sayfalamak için Tıklayın",
   "Tap Both Sides": "Her İki Tarafa Dokunun",
@@ -1813,5 +1809,9 @@
   "Granularity": "Ayrıntı düzeyi",
   "Refresh Page": "Sayfayı Yenile",
   "Recently read": "Son okunanlar",
-  "Show recently read": "Son okunanları göster"
+  "Show recently read": "Son okunanları göster",
+  "Find:": "Bul:",
+  "Enable rule": "Kuralı etkinleştir",
+  "Disable rule": "Kuralı devre dışı bırak",
+  "Progress Read": "Okuma İlerlemesi"
 }

@@ -602,10 +602,6 @@
   "Highlight Colors": "رنگ‌های هایلایت",
   "Pagination": "صفحه‌بندی",
   "Disable Double Tap": "غیرفعال کردن کلیک دوبل",
-  "Double Click to Select Word": "دوبار کلیک برای انتخاب کلمه",
-  "Double Tap to Select Word": "دوبار ضربه برای انتخاب کلمه",
-  "Behavior After Selection": "عملکرد پس از انتخاب",
-  "Open Toolbar": "باز کردن نوار ابزار",
   "Tap to Paginate": "ضربه برای صفحه‌بندی",
   "Click to Paginate": "کلیک برای صفحه‌بندی",
   "Tap Both Sides": "ضربه هر دو طرف",
@@ -1813,5 +1809,9 @@
   "Granularity": "دانه‌بندی",
   "Refresh Page": "تازه‌سازی صفحه",
   "Recently read": "اخیراً خوانده‌شده",
-  "Show recently read": "نمایش موارد اخیراً خوانده‌شده"
+  "Show recently read": "نمایش موارد اخیراً خوانده‌شده",
+  "Find:": "جستجو:",
+  "Enable rule": "فعال کردن قانون",
+  "Disable rule": "غیرفعال کردن قانون",
+  "Progress Read": "وضعیت مطالعه"
 }

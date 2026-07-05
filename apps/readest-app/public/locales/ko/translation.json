@@ -597,10 +597,6 @@
   "Highlight Colors": "하이라이트 색상",
   "Pagination": "페이지 매김",
   "Disable Double Tap": "더블 탭 비활성화",
-  "Double Click to Select Word": "더블 클릭하여 단어 선택",
-  "Double Tap to Select Word": "더블 탭하여 단어 선택",
-  "Behavior After Selection": "선택 후 동작",
-  "Open Toolbar": "도구 모음 열기",
   "Tap to Paginate": "탭하여 페이지 매김",
   "Click to Paginate": "클릭하여 페이지 매김",
   "Tap Both Sides": "양쪽을 탭",
@@ -1780,5 +1776,9 @@
   "Granularity": "단위",
   "Refresh Page": "페이지 새로고침",
   "Recently read": "최근 읽은 책",
-  "Show recently read": "최근 읽은 책 표시"
+  "Show recently read": "최근 읽은 책 표시",
+  "Find:": "찾기:",
+  "Enable rule": "규칙 활성화",
+  "Disable rule": "규칙 비활성화",
+  "Progress Read": "읽기 진행 상황"
 }
