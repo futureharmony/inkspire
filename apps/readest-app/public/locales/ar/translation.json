@@ -1945,5 +1945,7 @@
   "Find:": "بحث:",
   "Enable rule": "تفعيل القاعدة",
   "Disable rule": "تعطيل القاعدة",
-  "Progress Read": "تقدم القراءة"
+  "Progress Read": "تقدم القراءة",
+  "Open Toolbar on Selection": "فتح شريط الأدوات عند التحديد",
+  "Open Toolbar": "فتح شريط الأدوات"
 }

@@ -271,6 +271,7 @@ export const DEFAULT_BOOK_LAYOUT: BookLayout = {
   fullscreenClickArea: false,
   swapClickArea: false,
   disableDoubleClick: false,
+  doubleClickSelectionBehavior: 'dictionary,translate',
   volumeKeysToFlip: false,
   maxColumnCount: 2,
   maxInlineSize: getDefaultMaxInlineSize(),

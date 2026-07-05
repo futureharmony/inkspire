@@ -196,7 +196,7 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
   const trianglePadding = popupPadding * 2 + 6;
   const maxWidth = window.innerWidth - 2 * popupPadding;
   const maxHeight = window.innerHeight - 2 * popupPadding;
-  const doubleClickBehavior = viewSettings.doubleClickSelectionBehavior || 'toolbar';
+  const doubleClickBehavior = viewSettings.doubleClickSelectionBehavior || 'dictionary,translate';
   const isMultiPopup =
     (selection?.trigger === 'doubleclick' &&
       doubleClickBehavior.includes('dictionary') &&

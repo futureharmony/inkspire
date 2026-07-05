@@ -1813,5 +1813,7 @@
   "Find:": "Zoeken:",
   "Enable rule": "Regel inschakelen",
   "Disable rule": "Regel uitschakelen",
-  "Progress Read": "Leesvoortgang"
+  "Progress Read": "Leesvoortgang",
+  "Open Toolbar on Selection": "Werkbalk openen bij selectie",
+  "Open Toolbar": "Werkbalk openen"
 }

@@ -1780,5 +1780,7 @@
   "Find:": "Tìm:",
   "Enable rule": "Bật quy tắc",
   "Disable rule": "Tắt quy tắc",
-  "Progress Read": "Tiến độ đọc"
+  "Progress Read": "Tiến độ đọc",
+  "Open Toolbar on Selection": "Mở thanh công cụ khi chọn",
+  "Open Toolbar": "Mở thanh công cụ"
 }

@@ -1780,5 +1780,7 @@
   "Find:": "찾기:",
   "Enable rule": "규칙 활성화",
   "Disable rule": "규칙 비활성화",
-  "Progress Read": "읽기 진행 상황"
+  "Progress Read": "읽기 진행 상황",
+  "Open Toolbar on Selection": "선택 시 툴바 열기",
+  "Open Toolbar": "툴바 열기"
 }

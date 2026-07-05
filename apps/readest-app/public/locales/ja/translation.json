@@ -1780,5 +1780,7 @@
   "Find:": "検索：",
   "Enable rule": "ルールを有効化",
   "Disable rule": "ルールを無効化",
-  "Progress Read": "読書進捗"
+  "Progress Read": "読書進捗",
+  "Open Toolbar on Selection": "選択時にツールバーを開く",
+  "Open Toolbar": "ツールバーを開く"
 }

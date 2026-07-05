@@ -1813,5 +1813,7 @@
   "Find:": "खोजें:",
   "Enable rule": "नियम सक्षम करें",
   "Disable rule": "नियम अक्षम करें",
-  "Progress Read": "पढ़ने की प्रगति"
+  "Progress Read": "पढ़ने की प्रगति",
+  "Open Toolbar on Selection": "चयन पर टूलबार खोलें",
+  "Open Toolbar": "टूलबार खोलें"
 }

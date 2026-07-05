@@ -1846,5 +1846,7 @@
   "Find:": "Rechercher :",
   "Enable rule": "Activer la règle",
   "Disable rule": "Désactiver la règle",
-  "Progress Read": "Progression de lecture"
+  "Progress Read": "Progression de lecture",
+  "Open Toolbar on Selection": "Ouvrir la barre d'outils lors de la sélection",
+  "Open Toolbar": "Ouvrir la barre d'outils"
 }

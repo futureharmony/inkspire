@@ -1813,5 +1813,7 @@
   "Find:": "খুঁজুন:",
   "Enable rule": "নিয়ম সক্রিয় করুন",
   "Disable rule": "নিয়ম নিষ্ক্রিয় করুন",
-  "Progress Read": "পড়ার অগ্রগতি"
+  "Progress Read": "পড়ার অগ্রগতি",
+  "Open Toolbar on Selection": "নির্বাচনের সময় টুলবার খুলুন",
+  "Open Toolbar": "টুলবার খুলুন"
 }

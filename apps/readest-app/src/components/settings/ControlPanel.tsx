@@ -48,7 +48,7 @@ const ControlPanel: React.FC<SettingsPanelPanelProp> = ({ bookKey, onRegisterRes
   const [swapClickArea, setSwapClickArea] = useState(viewSettings.swapClickArea);
   const [isDisableDoubleClick, setIsDisableDoubleClick] = useState(viewSettings.disableDoubleClick);
   const [doubleClickSelectionBehavior, setDoubleClickSelectionBehavior] = useState(
-    viewSettings.doubleClickSelectionBehavior || 'toolbar',
+    viewSettings.doubleClickSelectionBehavior || 'dictionary,translate',
   );
   const [enableAnnotationQuickActions, setEnableAnnotationQuickActions] = useState(
     viewSettings.enableAnnotationQuickActions,
@@ -342,7 +342,7 @@ const ControlPanel: React.FC<SettingsPanelPanelProp> = ({ bookKey, onRegisterRes
 
   const handleToggleToolbar = () => {
     const isToolbar = doubleClickSelectionBehavior === 'toolbar' || !doubleClickSelectionBehavior;
-    const nextVal = isToolbar ? 'dictionary' : 'toolbar';
+    const nextVal = isToolbar ? 'dictionary,translate' : 'toolbar';
     setDoubleClickSelectionBehavior(nextVal);
   };
 

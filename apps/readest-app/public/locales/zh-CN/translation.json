@@ -1780,5 +1780,7 @@
   "Find:": "查找：",
   "Enable rule": "启用规则",
   "Disable rule": "禁用规则",
-  "Progress Read": "阅读进度"
+  "Progress Read": "阅读进度",
+  "Open Toolbar on Selection": "选词时打开工具栏",
+  "Open Toolbar": "打开工具栏"
 }

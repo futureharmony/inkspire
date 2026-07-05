@@ -1813,5 +1813,7 @@
   "Find:": "Bul:",
   "Enable rule": "Kuralı etkinleştir",
   "Disable rule": "Kuralı devre dışı bırak",
-  "Progress Read": "Okuma İlerlemesi"
+  "Progress Read": "Okuma İlerlemesi",
+  "Open Toolbar on Selection": "Seçimde araç çubuğunu aç",
+  "Open Toolbar": "Araç çubuğunu aç"
 }

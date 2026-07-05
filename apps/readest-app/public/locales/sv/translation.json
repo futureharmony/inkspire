@@ -1813,5 +1813,7 @@
   "Find:": "Sök:",
   "Enable rule": "Aktivera regel",
   "Disable rule": "Inaktivera regel",
-  "Progress Read": "Läsframsteg"
+  "Progress Read": "Läsframsteg",
+  "Open Toolbar on Selection": "Öppna verktygsfältet vid markering",
+  "Open Toolbar": "Öppna verktygsfältet"
 }

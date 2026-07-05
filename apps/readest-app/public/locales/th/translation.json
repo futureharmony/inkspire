@@ -1780,5 +1780,7 @@
   "Find:": "ค้นหา:",
   "Enable rule": "เปิดใช้กฎ",
   "Disable rule": "ปิดใช้กฎ",
-  "Progress Read": "ความคืบหน้าในการอ่าน"
+  "Progress Read": "ความคืบหน้าในการอ่าน",
+  "Open Toolbar on Selection": "เปิดแถบเครื่องมือเมื่อเลือก",
+  "Open Toolbar": "เปิดแถบเครื่องมือ"
 }

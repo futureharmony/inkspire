@@ -1879,5 +1879,7 @@
   "Find:": "Найти:",
   "Enable rule": "Включить правило",
   "Disable rule": "Отключить правило",
-  "Progress Read": "Прогресс чтения"
+  "Progress Read": "Прогресс чтения",
+  "Open Toolbar on Selection": "Открыть панель инструментов при выборе",
+  "Open Toolbar": "Открыть панель инструментов"
 }

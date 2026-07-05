@@ -1813,5 +1813,7 @@
   "Find:": "Topish:",
   "Enable rule": "Qoidani yoqish",
   "Disable rule": "Qoidani o‘chirish",
-  "Progress Read": "Oʻqish jarayoni"
+  "Progress Read": "Oʻqish jarayoni",
+  "Open Toolbar on Selection": "Tanlanganda asboblar panelini ochish",
+  "Open Toolbar": "Asboblar panelini ochish"
 }

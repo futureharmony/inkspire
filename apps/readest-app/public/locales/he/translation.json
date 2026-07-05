@@ -1846,5 +1846,7 @@
   "Find:": "חיפוש:",
   "Enable rule": "הפעל כלל",
   "Disable rule": "השבת כלל",
-  "Progress Read": "התקדמות קריאה"
+  "Progress Read": "התקדמות קריאה",
+  "Open Toolbar on Selection": "פתח סרגל כלים בבחירה",
+  "Open Toolbar": "פתח סרגל כלים"
 }

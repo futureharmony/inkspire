@@ -1780,5 +1780,7 @@
   "Find:": "Cari:",
   "Enable rule": "Aktifkan aturan",
   "Disable rule": "Nonaktifkan aturan",
-  "Progress Read": "Progres Membaca"
+  "Progress Read": "Progres Membaca",
+  "Open Toolbar on Selection": "Buka bilah alat saat pemilihan",
+  "Open Toolbar": "Buka bilah alat"
 }

@@ -1879,5 +1879,7 @@
   "Find:": "Znajdź:",
   "Enable rule": "Włącz regułę",
   "Disable rule": "Wyłącz regułę",
-  "Progress Read": "Postęp czytania"
+  "Progress Read": "Postęp czytania",
+  "Open Toolbar on Selection": "Otwórz pasek narzędzi przy zaznaczeniu",
+  "Open Toolbar": "Otwórz pasek narzędzi"
 }

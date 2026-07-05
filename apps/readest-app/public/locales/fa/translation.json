@@ -1813,5 +1813,7 @@
   "Find:": "جستجو:",
   "Enable rule": "فعال کردن قانون",
   "Disable rule": "غیرفعال کردن قانون",
-  "Progress Read": "وضعیت مطالعه"
+  "Progress Read": "وضعیت مطالعه",
+  "Open Toolbar on Selection": "باز کردن نوار ابزار هنگام انتخاب",
+  "Open Toolbar": "باز کردن نوار ابزار"
 }

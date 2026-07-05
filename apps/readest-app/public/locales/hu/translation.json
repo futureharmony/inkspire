@@ -1813,5 +1813,7 @@
   "Find:": "Keresés:",
   "Enable rule": "Szabály engedélyezése",
   "Disable rule": "Szabály letiltása",
-  "Progress Read": "Olvasási haladás"
+  "Progress Read": "Olvasási haladás",
+  "Open Toolbar on Selection": "Eszköztár megnyitása kijelöléskor",
+  "Open Toolbar": "Eszköztár megnyitása"
 }

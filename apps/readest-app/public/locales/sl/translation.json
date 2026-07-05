@@ -1879,5 +1879,7 @@
   "Find:": "Najdi:",
   "Enable rule": "Omogoči pravilo",
   "Disable rule": "Onemogoči pravilo",
-  "Progress Read": "Napredek branja"
+  "Progress Read": "Napredek branja",
+  "Open Toolbar on Selection": "Odpri orodno vrstico ob izbiri",
+  "Open Toolbar": "Odpri orodno vrstico"
 }
