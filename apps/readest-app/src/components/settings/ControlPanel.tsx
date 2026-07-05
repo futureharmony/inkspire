@@ -462,9 +462,51 @@ const ControlPanel: React.FC<SettingsPanelPanelProp> = ({ bookKey, onRegisterRes
               data-setting-id='settings.control.doubleClickSelectionBehavior.toolbar'
             />
             {doubleClickSelectionBehavior !== 'toolbar' && (
-              <div className='my-2 flex flex-col border-l border-base-200 ml-4 pl-4'>
+              <div className='my-2 flex flex-col border-l border-base-200 ml-4 pl-4 gap-2'>
+                {/* Linked Group: Dictionary & Translate */}
+                <div className='flex flex-col border border-base-content/10 bg-base-content/5 rounded-lg p-2 gap-1'>
+                  <div className='text-xs text-base-content/50 px-2 pb-1 border-b border-base-content/5 mb-1 flex justify-between items-center'>
+                    <span>{_('Co-selectable Options')}</span>
+                    <span className='scale-90 text-[10px] bg-primary/10 text-primary px-1.5 py-0.5 rounded font-medium'>
+                      {_('Link')}
+                    </span>
+                  </div>
+                  {getDoubleClickSelectionOptions()
+                    .filter((opt) => opt.value === 'dictionary' || opt.value === 'translate')
+                    .map((opt) => (
+                      <SettingsRow
+                        key={opt.value}
+                        asLabel
+                        className='ps-2'
+                        label={
+                          <span
+                            className={`text-sm text-base-content/85 ${isOptionDisabled(opt.value) ? 'opacity-50' : ''}`}
+                          >
+                            {opt.label}
+                          </span>
+                        }
+                      >
+                        <input
+                          type='checkbox'
+                          className='toggle toggle-sm'
+                          checked={getBehaviorsList(doubleClickSelectionBehavior).includes(
+                            opt.value,
+                          )}
+                          disabled={isOptionDisabled(opt.value)}
+                          onChange={() => toggleBehavior(opt.value)}
+                        />
+                      </SettingsRow>
+                    ))}
+                </div>
+
+                {/* Other Mutually Exclusive Options */}
                 {getDoubleClickSelectionOptions()
-                  .filter((opt) => opt.value !== 'toolbar')
+                  .filter(
+                    (opt) =>
+                      opt.value !== 'toolbar' &&
+                      opt.value !== 'dictionary' &&
+                      opt.value !== 'translate',
+                  )
                   .map((opt) => (
                     <SettingsRow
                       key={opt.value}

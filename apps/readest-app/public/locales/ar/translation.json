@@ -1949,5 +1949,7 @@
   "Open Toolbar on Selection": "فتح شريط الأدوات عند التحديد",
   "Open Toolbar": "فتح شريط الأدوات",
   "Double Click to Select Word": "نقر مزدوج لتحديد كلمة",
-  "Double Tap to Select Word": "ضغط مزدوج لتحديد كلمة"
+  "Double Tap to Select Word": "ضغط مزدوج لتحديد كلمة",
+  "Co-selectable Options": "خيارات مشتركة التحديد",
+  "Link": "ربط"
 }

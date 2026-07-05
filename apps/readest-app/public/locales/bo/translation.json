@@ -1778,5 +1778,7 @@
   "Open Toolbar on Selection": "འདེམས་སྐབས་ལག་ཆའི་ཚན་པ་ཁ་ཕྱེ།",
   "Open Toolbar": "ལག་ཆའི་ཚན་པ་ཁ་ཕྱེ།",
   "Double Click to Select Word": "མཐེབ་གཉིས་མནན་ནས་ཚིག་འདེམས་པ།",
-  "Double Tap to Select Word": "མཐེབ་གཉིས་མནན་ནས་ཚིག་འདེམས་པ།"
+  "Double Tap to Select Word": "མཐེབ་གཉིས་མནན་ནས་ཚིག་འདེམས་པ།",
+  "Co-selectable Options": "མཉམ་དུ་འདེམས་ཆོག་པའི་བདམ་བྱ།",
+  "Link": "འབྲེལ་མཐུད།"
 }

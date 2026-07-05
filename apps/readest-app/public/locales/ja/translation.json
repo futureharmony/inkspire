@@ -1784,5 +1784,7 @@
   "Open Toolbar on Selection": "選択時にツールバーを開く",
   "Open Toolbar": "ツールバーを開く",
   "Double Click to Select Word": "ダブルクリックで単語を選択",
-  "Double Tap to Select Word": "ダブルタップで単語を選択"
+  "Double Tap to Select Word": "ダブルタップで単語を選択",
+  "Co-selectable Options": "同時選択可能",
+  "Link": "連携"
 }

@@ -1784,5 +1784,7 @@
   "Open Toolbar on Selection": "เปิดแถบเครื่องมือเมื่อเลือก",
   "Open Toolbar": "เปิดแถบเครื่องมือ",
   "Double Click to Select Word": "ดับเบิลคลิกเพื่อเลือกคำ",
-  "Double Tap to Select Word": "ดับเบิลแท็บเพื่อเลือกคำ"
+  "Double Tap to Select Word": "ดับเบิลแท็บเพื่อเลือกคำ",
+  "Co-selectable Options": "ตัวเลือกที่เลือกพร้อมกันได้",
+  "Link": "เชื่อมโยง"
 }

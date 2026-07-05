@@ -1817,5 +1817,7 @@
   "Open Toolbar on Selection": "Άνοιγμα γραμμής εργαλείων κατά την επιλογή",
   "Open Toolbar": "Άνοιγμα γραμμής εργαλείων",
   "Double Click to Select Word": "Διπλό κλικ για επιλογή λέξης",
-  "Double Tap to Select Word": "Διπλό πάτημα για επιλογή λέξης"
+  "Double Tap to Select Word": "Διπλό πάτημα για επιλογή λέξης",
+  "Co-selectable Options": "Επιλογές συνδυαστικής επιλογής",
+  "Link": "Σύνδεσμος"
 }

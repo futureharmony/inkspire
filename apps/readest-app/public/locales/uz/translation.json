@@ -1817,5 +1817,7 @@
   "Open Toolbar on Selection": "Tanlanganda asboblar panelini ochish",
   "Open Toolbar": "Asboblar panelini ochish",
   "Double Click to Select Word": "So'zni tanlash uchun ikki marta bosing",
-  "Double Tap to Select Word": "So'zni tanlash uchun ikki marta bosing"
+  "Double Tap to Select Word": "So'zni tanlash uchun ikki marta bosing",
+  "Co-selectable Options": "Birgalikda tanlanadigan parametrlar",
+  "Link": "Havola"
 }

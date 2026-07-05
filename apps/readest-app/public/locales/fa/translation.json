@@ -1817,5 +1817,7 @@
   "Open Toolbar on Selection": "باز کردن نوار ابزار هنگام انتخاب",
   "Open Toolbar": "باز کردن نوار ابزار",
   "Double Click to Select Word": "دو بار کلیک برای انتخاب کلمه",
-  "Double Tap to Select Word": "دو بار ضربه برای انتخاب کلمه"
+  "Double Tap to Select Word": "دو بار ضربه برای انتخاب کلمه",
+  "Co-selectable Options": "گزینه‌های قابل انتخاب همزمان",
+  "Link": "پیوند"
 }

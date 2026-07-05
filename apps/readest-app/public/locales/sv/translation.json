@@ -1816,6 +1816,8 @@
   "Progress Read": "Läsframsteg",
   "Open Toolbar on Selection": "Öppna verktygsfältet vid markering",
   "Open Toolbar": "Öppna verktygsfältet",
-  "Double Click to Select Word": "Dubbelklicka för att välja ord",
-  "Double Tap to Select Word": "Dubbeltryck för att välja ord"
+  "Double Click to Select Word": "Dubbelklicka för att wybrać ord",
+  "Double Tap to Select Word": "Dubbeltryck för att välja ord",
+  "Co-selectable Options": "Gemensamt valbara alternativ",
+  "Link": "Länk"
 }

@@ -1883,5 +1883,7 @@
   "Open Toolbar on Selection": "Открыть панель инструментов при выборе",
   "Open Toolbar": "Открыть панель инструментов",
   "Double Click to Select Word": "Двойной клик для выбора слова",
-  "Double Tap to Select Word": "Двойное нажатие для выбора слова"
+  "Double Tap to Select Word": "Двойное нажатие для выбора слова",
+  "Co-selectable Options": "Совместно выбираемые",
+  "Link": "Связь"
 }

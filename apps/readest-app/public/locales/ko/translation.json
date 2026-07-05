@@ -1784,5 +1784,7 @@
   "Open Toolbar on Selection": "선택 시 툴바 열기",
   "Open Toolbar": "툴바 열기",
   "Double Click to Select Word": "더블 클릭으로 단어 선택",
-  "Double Tap to Select Word": "더블 탭으로 단어 선택"
+  "Double Tap to Select Word": "더블 탭으로 단어 선택",
+  "Co-selectable Options": "동시 선택 가능",
+  "Link": "연결"
 }
