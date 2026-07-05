@@ -328,15 +328,36 @@ const ControlPanel: React.FC<SettingsPanelPanelProp> = ({ bookKey, onRegisterRes
     return behaviorStr.split(',').filter(Boolean);
   };
 
+  const isOptionDisabled = (val: string) => {
+    const current = getBehaviorsList(doubleClickSelectionBehavior);
+    const hasDict = current.includes('dictionary');
+    const hasTrans = current.includes('translate');
+
+    if (hasDict) {
+      return val !== 'dictionary' && val !== 'translate';
+    }
+    if (hasTrans) {
+      return val !== 'dictionary' && val !== 'translate';
+    }
+
+    return false;
+  };
+
   const toggleBehavior = (behavior: string) => {
     const current = getBehaviorsList(doubleClickSelectionBehavior);
     let next: string[];
     if (current.includes(behavior)) {
       next = current.filter((b) => b !== behavior);
     } else {
-      next = [...current, behavior];
+      if (behavior === 'dictionary') {
+        next = current.includes('translate') ? ['translate', 'dictionary'] : ['dictionary'];
+      } else if (behavior === 'translate') {
+        next = current.includes('dictionary') ? ['dictionary', 'translate'] : ['translate'];
+      } else {
+        next = [behavior];
+      }
     }
-    const nextVal = next.length === 0 ? 'toolbar' : next.join(',');
+    const nextVal = next.join(',');
     setDoubleClickSelectionBehavior(nextVal);
   };
 
@@ -449,12 +470,19 @@ const ControlPanel: React.FC<SettingsPanelPanelProp> = ({ bookKey, onRegisterRes
                       key={opt.value}
                       asLabel
                       className='ps-2'
-                      label={<span className='text-sm text-base-content/85'>{opt.label}</span>}
+                      label={
+                        <span
+                          className={`text-sm text-base-content/85 ${isOptionDisabled(opt.value) ? 'opacity-50' : ''}`}
+                        >
+                          {opt.label}
+                        </span>
+                      }
                     >
                       <input
                         type='checkbox'
                         className='toggle toggle-sm'
                         checked={getBehaviorsList(doubleClickSelectionBehavior).includes(opt.value)}
+                        disabled={isOptionDisabled(opt.value)}
                         onChange={() => toggleBehavior(opt.value)}
                       />
                     </SettingsRow>
