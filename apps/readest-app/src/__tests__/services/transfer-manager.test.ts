@@ -63,7 +63,13 @@ const resetTransferManager = () => {
   mgr['getLibrary'] = null;
   mgr['updateBook'] = null;
   mgr['_'] = null;
-  (mgr['abortControllers'] as Map<string, AbortController>).clear();
+  // Guard against undefined in case the Map hasn't been initialised yet
+  // (e.g. first run in this vitest worker), then reset it to a fresh Map.
+  if (mgr['abortControllers'] instanceof Map) {
+    (mgr['abortControllers'] as Map<string, AbortController>).clear();
+  } else {
+    mgr['abortControllers'] = new Map<string, AbortController>();
+  }
   // Re-arm the readyPromise so each test starts with a pending one.
   let resolveReady: () => void = () => {};
   mgr['readyPromise'] = new Promise<void>((res) => {

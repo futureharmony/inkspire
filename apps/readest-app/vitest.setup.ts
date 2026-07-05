@@ -1,3 +1,35 @@
+// Node 26+ ships a built-in stub `localStorage` that overrides jsdom's fully
+// functional implementation. The stub is missing `clear`, `setItem`, etc.,
+// which breaks tests that depend on localStorage. Replace it with an in-memory
+// shim whenever the native object isn't fully functional.
+if (
+  typeof globalThis.localStorage === 'undefined' ||
+  typeof globalThis.localStorage?.clear !== 'function'
+) {
+  const store: Record<string, string> = {};
+  Object.defineProperty(globalThis, 'localStorage', {
+    value: {
+      getItem: (key: string) =>
+        Object.prototype.hasOwnProperty.call(store, key) ? store[key]! : null,
+      setItem: (key: string, value: string) => {
+        store[key] = String(value);
+      },
+      removeItem: (key: string) => {
+        delete store[key];
+      },
+      clear: () => {
+        Object.keys(store).forEach((k) => delete store[k]);
+      },
+      get length() {
+        return Object.keys(store).length;
+      },
+      key: (index: number) => Object.keys(store)[index] ?? null,
+    } satisfies Storage,
+    writable: true,
+    configurable: true,
+  });
+}
+
 // jsdom does not implement the CSS namespace; foliate-js TTS uses CSS.escape
 // (mark[name="…"] lookups). Provide the standard polyfill so those paths work.
 const globalWithCSS = globalThis as { CSS?: { escape?: (value: string) => string } };

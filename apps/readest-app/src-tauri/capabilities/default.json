@@ -50,7 +50,7 @@
       ]
     },
     {
-      "identifier": "fs:allow-cache-read",
+      "identifier": "fs:read-all",
       "allow": [
         {
           "path": "$APPCACHE/**/*"
@@ -61,7 +61,7 @@
       ]
     },
     {
-      "identifier": "fs:allow-cache-write",
+      "identifier": "fs:write-all",
       "allow": [
         {
           "path": "$APPCACHE/**/*"
