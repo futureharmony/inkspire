@@ -148,7 +148,7 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
   const [showDeepLPopup, setShowDeepLPopup] = useState(false);
   const [showProofreadPopup, setShowProofreadPopup] = useState(false);
   const [trianglePosition, setTrianglePosition] = useState<Position>();
-  const [translatorTrianglePosition, setTranslatorTrianglePosition] = useState<Position>();
+  const [popupText, setPopupText] = useState<string>('');
   const [annotPopupPosition, setAnnotPopupPosition] = useState<Position>();
   const [dictPopupPosition, setDictPopupPosition] = useState<Position>();
   const [translatorPopupPosition, setTranslatorPopupPosition] = useState<Position>();
@@ -196,12 +196,19 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
   const trianglePadding = popupPadding * 2 + 6;
   const maxWidth = window.innerWidth - 2 * popupPadding;
   const maxHeight = window.innerHeight - 2 * popupPadding;
-  const dictPopupWidth = Math.min(480, maxWidth);
+  const doubleClickBehavior = viewSettings.doubleClickSelectionBehavior || 'toolbar';
+  const isMultiPopup =
+    (selection?.trigger === 'doubleclick' &&
+      doubleClickBehavior.includes('dictionary') &&
+      doubleClickBehavior.includes('translate')) ||
+    (showDictionaryPopup && showDeepLPopup);
+
+  const dictPopupWidth = Math.min(isMultiPopup ? 360 : 480, maxWidth);
   // Tall enough to fit a header + 2-3 expanded cards comfortably. The popup
   // shows all enabled providers stacked (no tabs) so it needs more vertical
   // room than the legacy single-tab layout.
   const dictPopupHeight = Math.min(360, maxHeight);
-  const transPopupWidth = Math.min(480, maxWidth);
+  const transPopupWidth = Math.min(isMultiPopup ? 360 : 480, maxWidth);
   const transPopupHeight = Math.min(265, maxHeight);
   const proofreadPopupWidth = Math.min(440, maxWidth);
   const proofreadPopupHeight = Math.min(200, maxHeight);
@@ -240,56 +247,35 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
       triangPos.point.y += androidSelectionHandlerHeight;
       annotPopupPos.point.y += androidSelectionHandlerHeight;
     }
+    let dictPosShifter = triangPos;
+    let transPosShifter = triangPos;
+
+    if (isMultiPopup) {
+      dictPosShifter = {
+        ...triangPos,
+        point: {
+          ...triangPos.point,
+          x: triangPos.point.x - dictPopupWidth / 2 - 10,
+        },
+      };
+      transPosShifter = {
+        ...triangPos,
+        point: {
+          ...triangPos.point,
+          x: triangPos.point.x + transPopupWidth / 2 + 10,
+        },
+      };
+    }
+
     const dictPopupPos = getPopupPosition(
-      triangPos,
+      dictPosShifter,
       rect,
       dictPopupWidth,
       dictPopupHeight,
       popupPadding,
     );
-    const doubleClickBehavior = viewSettings.doubleClickSelectionBehavior || 'toolbar';
-    const isMultiPopup =
-      (selection.trigger === 'doubleclick' &&
-        doubleClickBehavior.includes('dictionary') &&
-        doubleClickBehavior.includes('translate')) ||
-      (showDictionaryPopup && showDeepLPopup);
-
-    let triangPosOpposite = triangPos;
-    const oppositeDir = triangPos.dir
-      ? (
-          {
-            up: 'down',
-            down: 'up',
-            left: 'right',
-            right: 'left',
-          } as const
-        )[triangPos.dir]
-      : undefined;
-
-    if (isMultiPopup && oppositeDir) {
-      let wordHeight = 24;
-      let wordWidth = 48;
-      if (selection.range) {
-        const rangeRect = selection.range.getBoundingClientRect();
-        wordHeight = rangeRect.height;
-        wordWidth = rangeRect.width;
-      }
-
-      const oppositePoint = { ...triangPos.point };
-      if (oppositeDir === 'down') {
-        oppositePoint.y = triangPos.point.y + wordHeight + 18;
-      } else if (oppositeDir === 'up') {
-        oppositePoint.y = triangPos.point.y - wordHeight - 18;
-      } else if (oppositeDir === 'right') {
-        oppositePoint.x = triangPos.point.x + wordWidth + 12;
-      } else if (oppositeDir === 'left') {
-        oppositePoint.x = triangPos.point.x - wordWidth - 12;
-      }
-      triangPosOpposite = { point: oppositePoint, dir: oppositeDir };
-    }
-
     const transPopupPos = getPopupPosition(
-      isMultiPopup ? triangPosOpposite : triangPos,
+      transPosShifter,
       rect,
       transPopupWidth,
       transPopupHeight,
@@ -308,7 +294,6 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
     setTranslatorPopupPosition(transPopupPos);
     setProofreadPopupPosition(proofreadPopupPos);
     setTrianglePosition(triangPos);
-    setTranslatorTrianglePosition(isMultiPopup ? triangPosOpposite : triangPos);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     selection,
@@ -361,6 +346,7 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
   const handleDismissPopup = useCallback(
     throttle(() => {
       setSelection(null);
+      setPopupText('');
       setShowAnnotPopup(false);
       setShowDictionaryPopup(false);
       setShowDeepLPopup(false);
@@ -1000,56 +986,37 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
         triangPos.point.y += androidSelectionHandlerHeight;
         annotPopupPos.point.y += androidSelectionHandlerHeight;
       }
+      setPopupText(selection.text);
+
+      let dictPosShifter = triangPos;
+      let transPosShifter = triangPos;
+
+      if (isMultiPopup) {
+        dictPosShifter = {
+          ...triangPos,
+          point: {
+            ...triangPos.point,
+            x: triangPos.point.x - dictPopupWidth / 2 - 10,
+          },
+        };
+        transPosShifter = {
+          ...triangPos,
+          point: {
+            ...triangPos.point,
+            x: triangPos.point.x + transPopupWidth / 2 + 10,
+          },
+        };
+      }
+
       const dictPopupPos = getPopupPosition(
-        triangPos,
+        dictPosShifter,
         rect,
         dictPopupWidth,
         dictPopupHeight,
         popupPadding,
       );
-      const doubleClickBehavior = viewSettings.doubleClickSelectionBehavior || 'toolbar';
-      const isMultiPopup =
-        (selection.trigger === 'doubleclick' &&
-          doubleClickBehavior.includes('dictionary') &&
-          doubleClickBehavior.includes('translate')) ||
-        (showDictionaryPopup && showDeepLPopup);
-
-      let triangPosOpposite = triangPos;
-      const oppositeDir = triangPos.dir
-        ? (
-            {
-              up: 'down',
-              down: 'up',
-              left: 'right',
-              right: 'left',
-            } as const
-          )[triangPos.dir]
-        : undefined;
-
-      if (isMultiPopup && oppositeDir) {
-        let wordHeight = 24;
-        let wordWidth = 48;
-        if (selection.range) {
-          const rangeRect = selection.range.getBoundingClientRect();
-          wordHeight = rangeRect.height;
-          wordWidth = rangeRect.width;
-        }
-
-        const oppositePoint = { ...triangPos.point };
-        if (oppositeDir === 'down') {
-          oppositePoint.y = triangPos.point.y + wordHeight + 18;
-        } else if (oppositeDir === 'up') {
-          oppositePoint.y = triangPos.point.y - wordHeight - 18;
-        } else if (oppositeDir === 'right') {
-          oppositePoint.x = triangPos.point.x + wordWidth + 12;
-        } else if (oppositeDir === 'left') {
-          oppositePoint.x = triangPos.point.x - wordWidth - 12;
-        }
-        triangPosOpposite = { point: oppositePoint, dir: oppositeDir };
-      }
-
       const transPopupPos = getPopupPosition(
-        isMultiPopup ? triangPosOpposite : triangPos,
+        transPosShifter,
         rect,
         transPopupWidth,
         transPopupHeight,
@@ -1068,7 +1035,6 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
       setTranslatorPopupPosition(transPopupPos);
       setProofreadPopupPosition(proofreadPopupPos);
       setTrianglePosition(triangPos);
-      setTranslatorTrianglePosition(isMultiPopup ? triangPosOpposite : triangPos);
 
       const { enableAnnotationQuickActions, annotationQuickAction } = viewSettings;
 
@@ -1868,7 +1834,7 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
           if (useSheet) {
             return (
               <DictionarySheet
-                word={selection?.text as string}
+                word={popupText}
                 lang={bookData.bookDoc?.metadata.language as string}
                 onDismiss={handleDismissPopupAndSelection}
                 onManage={onManage}
@@ -1878,7 +1844,7 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
           if (!trianglePosition || !dictPopupPosition) return null;
           return (
             <DictionaryPopup
-              word={selection?.text as string}
+              word={popupText}
               lang={bookData.bookDoc?.metadata.language as string}
               position={dictPopupPosition}
               trianglePosition={trianglePosition}
@@ -1889,11 +1855,11 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
             />
           );
         })()}
-      {showDeepLPopup && translatorTrianglePosition && translatorPopupPosition && (
+      {showDeepLPopup && trianglePosition && translatorPopupPosition && (
         <TranslatorPopup
-          text={selection?.text as string}
+          text={popupText}
           position={translatorPopupPosition}
-          trianglePosition={translatorTrianglePosition}
+          trianglePosition={trianglePosition}
           popupWidth={transPopupWidth}
           popupHeight={transPopupHeight}
           onDismiss={handleDismissPopupAndSelection}
