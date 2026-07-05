@@ -1815,5 +1815,7 @@
   "Disable rule": "Kuralı devre dışı bırak",
   "Progress Read": "Okuma İlerlemesi",
   "Open Toolbar on Selection": "Seçimde araç çubuğunu aç",
-  "Open Toolbar": "Araç çubuğunu aç"
+  "Open Toolbar": "Araç çubuğunu aç",
+  "Double Click to Select Word": "Kelime seçmek için çift tıklayın",
+  "Double Tap to Select Word": "Kelime seçmek için çift dokunun"
 }

@@ -1848,5 +1848,7 @@
   "Disable rule": "השבת כלל",
   "Progress Read": "התקדמות קריאה",
   "Open Toolbar on Selection": "פתח סרגל כלים בבחירה",
-  "Open Toolbar": "פתח סרגל כלים"
+  "Open Toolbar": "פתח סרגל כלים",
+  "Double Click to Select Word": "לחיצה כפולה לבחירת מילה",
+  "Double Tap to Select Word": "הקשה כפולה לבחירת מילה"
 }

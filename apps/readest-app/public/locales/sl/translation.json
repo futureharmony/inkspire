@@ -1881,5 +1881,7 @@
   "Disable rule": "Onemogoči pravilo",
   "Progress Read": "Napredek branja",
   "Open Toolbar on Selection": "Odpri orodno vrstico ob izbiri",
-  "Open Toolbar": "Odpri orodno vrstico"
+  "Open Toolbar": "Odpri orodno vrstico",
+  "Double Click to Select Word": "Dvojni klik za izbiro besede",
+  "Double Tap to Select Word": "Dvojni tap za izbiro besede"
 }

@@ -1782,5 +1782,7 @@
   "Disable rule": "ปิดใช้กฎ",
   "Progress Read": "ความคืบหน้าในการอ่าน",
   "Open Toolbar on Selection": "เปิดแถบเครื่องมือเมื่อเลือก",
-  "Open Toolbar": "เปิดแถบเครื่องมือ"
+  "Open Toolbar": "เปิดแถบเครื่องมือ",
+  "Double Click to Select Word": "ดับเบิลคลิกเพื่อเลือกคำ",
+  "Double Tap to Select Word": "ดับเบิลแท็บเพื่อเลือกคำ"
 }

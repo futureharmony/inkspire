@@ -1815,5 +1815,7 @@
   "Disable rule": "नियम अक्षम करें",
   "Progress Read": "पढ़ने की प्रगति",
   "Open Toolbar on Selection": "चयन पर टूलबार खोलें",
-  "Open Toolbar": "टूलबार खोलें"
+  "Open Toolbar": "टूलबार खोलें",
+  "Double Click to Select Word": "शब्द चुनने के लिए डबल क्लिक करें",
+  "Double Tap to Select Word": "शब्द चुनने के लिए डबल टैप करें"
 }

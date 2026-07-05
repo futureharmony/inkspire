@@ -1815,5 +1815,7 @@
   "Disable rule": "Regel deaktivieren",
   "Progress Read": "Lesefortschritt",
   "Open Toolbar on Selection": "Symbolleiste bei Auswahl öffnen",
-  "Open Toolbar": "Symbolleiste öffnen"
+  "Open Toolbar": "Symbolleiste öffnen",
+  "Double Click to Select Word": "Doppelklick zur Wortauswahl",
+  "Double Tap to Select Word": "Doppeltippen zur Wortauswahl"
 }

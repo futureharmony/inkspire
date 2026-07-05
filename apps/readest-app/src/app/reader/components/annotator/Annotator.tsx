@@ -281,6 +281,34 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
       transPopupHeight,
       popupPadding,
     );
+    // Resolve horizontal overlap when both are active:
+    if (isMultiPopup) {
+      const gap = 10;
+      const overlap = dictPopupPos.point.x + dictPopupWidth + gap - transPopupPos.point.x;
+      if (overlap > 0) {
+        const leftLimit = popupPadding;
+        const rightLimit = rect.right - rect.left - popupPadding;
+
+        const isDictClampedToLeft = dictPopupPos.point.x <= leftLimit;
+        const isTransClampedToRight = transPopupPos.point.x + transPopupWidth >= rightLimit;
+
+        if (isDictClampedToLeft && !isTransClampedToRight) {
+          transPopupPos.point.x = Math.min(
+            dictPopupPos.point.x + dictPopupWidth + gap,
+            rightLimit - transPopupWidth,
+          );
+        } else if (isTransClampedToRight && !isDictClampedToLeft) {
+          dictPopupPos.point.x = Math.max(transPopupPos.point.x - dictPopupWidth - gap, leftLimit);
+        } else {
+          const shift = overlap / 2;
+          dictPopupPos.point.x = Math.max(dictPopupPos.point.x - shift, leftLimit);
+          transPopupPos.point.x = Math.min(
+            transPopupPos.point.x + shift,
+            rightLimit - transPopupWidth,
+          );
+        }
+      }
+    }
     const proofreadPopupPos = getPopupPosition(
       triangPos,
       rect,
@@ -1022,6 +1050,37 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
         transPopupHeight,
         popupPadding,
       );
+      // Resolve horizontal overlap when both are active:
+      if (isMultiPopup) {
+        const gap = 10;
+        const overlap = dictPopupPos.point.x + dictPopupWidth + gap - transPopupPos.point.x;
+        if (overlap > 0) {
+          const leftLimit = popupPadding;
+          const rightLimit = rect.right - rect.left - popupPadding;
+
+          const isDictClampedToLeft = dictPopupPos.point.x <= leftLimit;
+          const isTransClampedToRight = transPopupPos.point.x + transPopupWidth >= rightLimit;
+
+          if (isDictClampedToLeft && !isTransClampedToRight) {
+            transPopupPos.point.x = Math.min(
+              dictPopupPos.point.x + dictPopupWidth + gap,
+              rightLimit - transPopupWidth,
+            );
+          } else if (isTransClampedToRight && !isDictClampedToLeft) {
+            dictPopupPos.point.x = Math.max(
+              transPopupPos.point.x - dictPopupWidth - gap,
+              leftLimit,
+            );
+          } else {
+            const shift = overlap / 2;
+            dictPopupPos.point.x = Math.max(dictPopupPos.point.x - shift, leftLimit);
+            transPopupPos.point.x = Math.min(
+              transPopupPos.point.x + shift,
+              rightLimit - transPopupWidth,
+            );
+          }
+        }
+      }
       const proofreadPopupPos = getPopupPosition(
         triangPos,
         rect,

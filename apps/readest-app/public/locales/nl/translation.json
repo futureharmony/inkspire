@@ -1815,5 +1815,7 @@
   "Disable rule": "Regel uitschakelen",
   "Progress Read": "Leesvoortgang",
   "Open Toolbar on Selection": "Werkbalk openen bij selectie",
-  "Open Toolbar": "Werkbalk openen"
+  "Open Toolbar": "Werkbalk openen",
+  "Double Click to Select Word": "Dubbelklikken om woord te selecteren",
+  "Double Tap to Select Word": "Dubbeltikken om woord te selecteren"
 }

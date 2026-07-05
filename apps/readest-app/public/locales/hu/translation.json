@@ -1815,5 +1815,7 @@
   "Disable rule": "Szabály letiltása",
   "Progress Read": "Olvasási haladás",
   "Open Toolbar on Selection": "Eszköztár megnyitása kijelöléskor",
-  "Open Toolbar": "Eszköztár megnyitása"
+  "Open Toolbar": "Eszköztár megnyitása",
+  "Double Click to Select Word": "Dupla kattintás a szó kijelöléséhez",
+  "Double Tap to Select Word": "Dupla koppintás a szó kijelöléséhez"
 }

@@ -1782,5 +1782,7 @@
   "Disable rule": "ルールを無効化",
   "Progress Read": "読書進捗",
   "Open Toolbar on Selection": "選択時にツールバーを開く",
-  "Open Toolbar": "ツールバーを開く"
+  "Open Toolbar": "ツールバーを開く",
+  "Double Click to Select Word": "ダブルクリックで単語を選択",
+  "Double Tap to Select Word": "ダブルタップで単語を選択"
 }

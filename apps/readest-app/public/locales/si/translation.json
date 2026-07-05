@@ -1815,5 +1815,7 @@
   "Disable rule": "නියමය අක්‍රීය කරන්න",
   "Progress Read": "කියවීමේ ප්‍රගතිය",
   "Open Toolbar on Selection": "තේරීමේදී මෙවලම් තීරුව විවෘත කරන්න",
-  "Open Toolbar": "මෙවලම් තීරුව විවෘත කරන්න"
+  "Open Toolbar": "මෙවලම් තීරුව විවෘත කරන්න",
+  "Double Click to Select Word": "වචනය තේරීමට දෙවරක් ක්ලික් කරන්න",
+  "Double Tap to Select Word": "වචනය තේරීමට දෙවරක් තට්ටු කරන්න"
 }

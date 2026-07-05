@@ -1782,5 +1782,7 @@
   "Disable rule": "停用規則",
   "Progress Read": "閱讀進度",
   "Open Toolbar on Selection": "選詞時打開工具欄",
-  "Open Toolbar": "打開工具欄"
+  "Open Toolbar": "打開工具欄",
+  "Double Click to Select Word": "雙擊選詞",
+  "Double Tap to Select Word": "雙擊選詞"
 }

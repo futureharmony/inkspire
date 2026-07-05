@@ -1947,5 +1947,7 @@
   "Disable rule": "تعطيل القاعدة",
   "Progress Read": "تقدم القراءة",
   "Open Toolbar on Selection": "فتح شريط الأدوات عند التحديد",
-  "Open Toolbar": "فتح شريط الأدوات"
+  "Open Toolbar": "فتح شريط الأدوات",
+  "Double Click to Select Word": "نقر مزدوج لتحديد كلمة",
+  "Double Tap to Select Word": "ضغط مزدوج لتحديد كلمة"
 }

@@ -1815,5 +1815,7 @@
   "Disable rule": "Απενεργοποίηση κανόνα",
   "Progress Read": "Πρόοδος ανάγνωσης",
   "Open Toolbar on Selection": "Άνοιγμα γραμμής εργαλείων κατά την επιλογή",
-  "Open Toolbar": "Άνοιγμα γραμμής εργαλείων"
+  "Open Toolbar": "Άνοιγμα γραμμής εργαλείων",
+  "Double Click to Select Word": "Διπλό κλικ για επιλογή λέξης",
+  "Double Tap to Select Word": "Διπλό πάτημα για επιλογή λέξης"
 }

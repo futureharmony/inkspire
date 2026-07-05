@@ -1848,5 +1848,7 @@
   "Disable rule": "Desactivar regla",
   "Progress Read": "Progreso de Lectura",
   "Open Toolbar on Selection": "Abrir la barra de herramientas al seleccionar",
-  "Open Toolbar": "Abrir la barra de herramientas"
+  "Open Toolbar": "Abrir la barra de herramientas",
+  "Double Click to Select Word": "Doble clic para seleccionar palabra",
+  "Double Tap to Select Word": "Doble toque para seleccionar palabra"
 }

@@ -1881,5 +1881,7 @@
   "Disable rule": "Вимкнути правило",
   "Progress Read": "Проґрес читання",
   "Open Toolbar on Selection": "Відкривати панель інструментів при виділенні",
-  "Open Toolbar": "Відкрити панель інструментів"
+  "Open Toolbar": "Відкрити панель інструментів",
+  "Double Click to Select Word": "Подвійний клік для виділення слова",
+  "Double Tap to Select Word": "Подвійне натискання для виділення слова"
 }

@@ -1848,5 +1848,7 @@
   "Disable rule": "Dezactivează regula",
   "Progress Read": "Progresul citirii",
   "Open Toolbar on Selection": "Deschide bara de instrumente la selecție",
-  "Open Toolbar": "Deschide bara de instrumente"
+  "Open Toolbar": "Deschide bara de instrumente",
+  "Double Click to Select Word": "Dublu clic pentru a selecta cuvântul",
+  "Double Tap to Select Word": "Dublă atingere pentru a selecta cuvântul"
 }
