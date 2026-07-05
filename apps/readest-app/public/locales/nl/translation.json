@@ -1818,6 +1818,6 @@
   "Open Toolbar": "Werkbalk openen",
   "Double Click to Select Word": "Dubbelklikken om woord te selecteren",
   "Double Tap to Select Word": "Dubbeltikken om woord te selecteren",
-  "Co-selectable Options": "Gelijktijdig selecteerbaar",
-  "Link": "Koppeling"
+  "Can be co-selected with Translate": "Kan gelijktijdig met Vertaling worden geselecteerd",
+  "Can be co-selected with Dictionary": "Kan gelijktijdig met Woordenboek worden geselecteerd"
 }

@@ -1884,6 +1884,6 @@
   "Open Toolbar": "Otwórz pasek narzędzi",
   "Double Click to Select Word": "Kliknij dwukrotnie, aby zaznaczyć słowo",
   "Double Tap to Select Word": "Stuknij dwukrotnie, aby zaznaczyć słowo",
-  "Co-selectable Options": "Opcje wspólnego wyboru",
-  "Link": "Połączenie"
+  "Can be co-selected with Translate": "Może być zaznaczone jednocześnie z Tłumaczeniem",
+  "Can be co-selected with Dictionary": "Może być zaznaczone jednocześnie ze Słownikiem"
 }

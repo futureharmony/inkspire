@@ -1818,6 +1818,6 @@
   "Open Toolbar": "Araç çubuğunu aç",
   "Double Click to Select Word": "Kelime seçmek için çift tıklayın",
   "Double Tap to Select Word": "Kelime seçmek için çift dokunun",
-  "Co-selectable Options": "Eş zamanlı seçilebilir",
-  "Link": "Bağlantı"
+  "Can be co-selected with Translate": "Çeviri ile birlikte seçilebilir",
+  "Can be co-selected with Dictionary": "Sözlük ile birlikte seçilebilir"
 }

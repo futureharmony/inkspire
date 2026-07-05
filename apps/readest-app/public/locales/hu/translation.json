@@ -1818,6 +1818,6 @@
   "Open Toolbar": "Eszköztár megnyitása",
   "Double Click to Select Word": "Dupla kattintás a szó kijelöléséhez",
   "Double Tap to Select Word": "Dupla koppintás a szó kijelöléséhez",
-  "Co-selectable Options": "Közösen választható opciók",
-  "Link": "Kapcsolat"
+  "Can be co-selected with Translate": "A Fordítással együtt is választható",
+  "Can be co-selected with Dictionary": "A Szótárral együtt is választható"
 }

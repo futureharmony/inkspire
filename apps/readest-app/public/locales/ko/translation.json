@@ -1785,6 +1785,6 @@
   "Open Toolbar": "툴바 열기",
   "Double Click to Select Word": "더블 클릭으로 단어 선택",
   "Double Tap to Select Word": "더블 탭으로 단어 선택",
-  "Co-selectable Options": "동시 선택 가능",
-  "Link": "연결"
+  "Can be co-selected with Translate": "번역과 동시에 선택 가능",
+  "Can be co-selected with Dictionary": "사전과 동시에 선택 가능"
 }

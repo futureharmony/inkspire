@@ -1818,6 +1818,6 @@
   "Open Toolbar": "Symbolleiste öffnen",
   "Double Click to Select Word": "Doppelklick zur Wortauswahl",
   "Double Tap to Select Word": "Doppeltippen zur Wortauswahl",
-  "Co-selectable Options": "Gleichzeitig auswählbar",
-  "Link": "Verknüpfung"
+  "Can be co-selected with Translate": "Kann gleichzeitig mit Übersetzung ausgewählt werden",
+  "Can be co-selected with Dictionary": "Kann gleichzeitig mit Wörterbuch ausgewählt werden"
 }

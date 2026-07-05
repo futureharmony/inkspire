@@ -573,6 +573,33 @@ export const getWordRangeAt = (node: Node, offset: number, lang?: string): Range
   return null;
 };
 
+const resolveTextNode = (node: Node, offset: number): { node: Node; offset: number } | null => {
+  if (node.nodeType === Node.TEXT_NODE) {
+    return { node, offset };
+  }
+  if (node.nodeType === Node.ELEMENT_NODE) {
+    const children = node.childNodes;
+    if (offset >= 0 && offset < children.length) {
+      const child = children[offset];
+      if (child) {
+        if (child.nodeType === Node.TEXT_NODE) {
+          return { node: child, offset: 0 };
+        }
+        const resolved = resolveTextNode(child, 0);
+        if (resolved) return resolved;
+      }
+    }
+    const walker = node.ownerDocument?.createTreeWalker(node, NodeFilter.SHOW_TEXT);
+    if (walker) {
+      const firstTextNode = walker.nextNode();
+      if (firstTextNode) {
+        return { node: firstTextNode, offset: 0 };
+      }
+    }
+  }
+  return null;
+};
+
 // The word range under a point (in `doc` viewport coordinates), like a native
 // double-click. Returns null when the point isn't on word-like text.
 export const getWordRangeFromPoint = (
@@ -581,6 +608,22 @@ export const getWordRangeFromPoint = (
   y: number,
   lang?: string,
 ): Range | null => {
+  // First check if the clicked element is inside a glossed ruby tag
+  const clickedEl = doc.elementFromPoint ? doc.elementFromPoint(x, y) : null;
+  const rubyEl = clickedEl?.closest('ruby.readest-gloss');
+  if (rubyEl) {
+    const walker = doc.createTreeWalker(rubyEl, NodeFilter.SHOW_TEXT);
+    let baseTextNode = walker.nextNode();
+    while (baseTextNode && baseTextNode.parentElement?.closest('rt')) {
+      baseTextNode = walker.nextNode();
+    }
+    if (baseTextNode) {
+      const range = doc.createRange();
+      range.selectNodeContents(baseTextNode);
+      return range;
+    }
+  }
+
   let node: Node | null = null;
   let offset = 0;
   if (doc.caretPositionFromPoint) {
@@ -597,7 +640,11 @@ export const getWordRangeFromPoint = (
     }
   }
   if (!node) return null;
-  return getWordRangeAt(node, offset, lang);
+
+  const resolved = resolveTextNode(node, offset);
+  if (!resolved) return null;
+
+  return getWordRangeAt(resolved.node, resolved.offset, lang);
 };
 
 // --- Android hyphenation selection-bounds bug (issue #1553) -----------------

@@ -1779,6 +1779,6 @@
   "Open Toolbar": "ལག་ཆའི་ཚན་པ་ཁ་ཕྱེ།",
   "Double Click to Select Word": "མཐེབ་གཉིས་མནན་ནས་ཚིག་འདེམས་པ།",
   "Double Tap to Select Word": "མཐེབ་གཉིས་མནན་ནས་ཚིག་འདེམས་པ།",
-  "Co-selectable Options": "མཉམ་དུ་འདེམས་ཆོག་པའི་བདམ་བྱ།",
-  "Link": "འབྲེལ་མཐུད།"
+  "Can be co-selected with Translate": "ཡིག་སྒྱུར་དང་མཉམ་དུ་འདེམས་ཆོག",
+  "Can be co-selected with Dictionary": "ཚིག་མཛོད་དང་མཉམ་དུ་འདེམས་ཆོག"
 }

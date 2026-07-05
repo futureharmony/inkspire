@@ -1818,6 +1818,6 @@
   "Open Toolbar": "මෙවලම් තීරුව විවෘත කරන්න",
   "Double Click to Select Word": "වචනය තේරීමට දෙවරක් ක්ලික් කරන්න",
   "Double Tap to Select Word": "වචනය තේරීමට දෙවරක් තට්ටු කරන්න",
-  "Co-selectable Options": "එක්ව තෝරාගත හැකි විකල්ප",
-  "Link": "සම්බන්ධතාවය"
+  "Can be co-selected with Translate": "පරිවර්තනය සමඟ එක්ව තෝරාගත හැක",
+  "Can be co-selected with Dictionary": "ශබ්දකෝෂය සමඟ එක්ව තෝරාගත හැක"
 }

@@ -1785,6 +1785,6 @@
   "Open Toolbar": "ツールバーを開く",
   "Double Click to Select Word": "ダブルクリックで単語を選択",
   "Double Tap to Select Word": "ダブルタップで単語を選択",
-  "Co-selectable Options": "同時選択可能",
-  "Link": "連携"
+  "Can be co-selected with Translate": "翻訳と同時に選択可能",
+  "Can be co-selected with Dictionary": "辞書と同時に選択可能"
 }

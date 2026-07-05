@@ -181,8 +181,11 @@ export const handleClick = (
   bookKey: string,
   doubleClickDisabled: React.MutableRefObject<boolean>,
   isFixedLayout: boolean,
-  event: MouseEvent,
+  sectionIndexOrEvent: number | MouseEvent,
+  optionalEvent?: MouseEvent,
 ) => {
+  const sectionIndex = typeof sectionIndexOrEvent === 'number' ? sectionIndexOrEvent : undefined;
+  const event = typeof sectionIndexOrEvent === 'number' ? optionalEvent! : sectionIndexOrEvent;
   const now = Date.now();
 
   if (!doubleClickDisabled.current && now - lastClickTime < DOUBLE_CLICK_INTERVAL_THRESHOLD_MS) {
@@ -191,6 +194,7 @@ export const handleClick = (
       {
         type: 'iframe-double-click',
         bookKey,
+        sectionIndex,
         screenX: event.screenX,
         screenY: event.screenY,
         clientX: event.clientX,

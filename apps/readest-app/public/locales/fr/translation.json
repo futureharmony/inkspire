@@ -1851,6 +1851,6 @@
   "Open Toolbar": "Ouvrir la barre d'outils",
   "Double Click to Select Word": "Double-cliquer pour sélectionner un mot",
   "Double Tap to Select Word": "Appuyer deux fois pour sélectionner un mot",
-  "Co-selectable Options": "Options co-sélectionnables",
-  "Link": "Lien"
+  "Can be co-selected with Translate": "Peut être co-sélectionné avec Traduction",
+  "Can be co-selected with Dictionary": "Peut être co-sélectionné avec Dictionnaire"
 }

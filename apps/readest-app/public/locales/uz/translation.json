@@ -1818,6 +1818,6 @@
   "Open Toolbar": "Asboblar panelini ochish",
   "Double Click to Select Word": "So'zni tanlash uchun ikki marta bosing",
   "Double Tap to Select Word": "So'zni tanlash uchun ikki marta bosing",
-  "Co-selectable Options": "Birgalikda tanlanadigan parametrlar",
-  "Link": "Havola"
+  "Can be co-selected with Translate": "Tarjima bilan birgalikda tanlanishi mumkin",
+  "Can be co-selected with Dictionary": "Lug'at bilan birgalikda tanlanishi mumkin"
 }

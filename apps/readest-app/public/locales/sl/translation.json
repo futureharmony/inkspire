@@ -1884,6 +1884,6 @@
   "Open Toolbar": "Odpri orodno vrstico",
   "Double Click to Select Word": "Dvojni klik za izbiro besede",
   "Double Tap to Select Word": "Dvojni tap za izbiro besede",
-  "Co-selectable Options": "Možnosti soizbire",
-  "Link": "Povezava"
+  "Can be co-selected with Translate": "Lahko se izbere skupaj s Prevajanjem",
+  "Can be co-selected with Dictionary": "Lahko se izbere skupaj s Slovarjem"
 }

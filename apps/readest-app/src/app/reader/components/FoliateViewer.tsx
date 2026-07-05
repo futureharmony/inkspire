@@ -400,7 +400,13 @@ const FoliateViewer: React.FC<{
         detail.doc.addEventListener('mouseup', handleMouseup.bind(null, bookKey));
         detail.doc.addEventListener(
           'click',
-          handleClick.bind(null, bookKey, doubleClickDisabled, !!bookData?.isFixedLayout),
+          handleClick.bind(
+            null,
+            bookKey,
+            doubleClickDisabled,
+            !!bookData?.isFixedLayout,
+            detail.index,
+          ),
         );
         detail.doc.addEventListener('wheel', handleWheel.bind(null, bookKey));
         detail.doc.addEventListener('touchstart', handleTouchStart.bind(null, bookKey));
@@ -476,7 +482,9 @@ const FoliateViewer: React.FC<{
           relayoutWarichu(doc);
         }
         if (vs && appService && !isFixedLayout) {
-          void refreshSectionGlosses(doc, vs, buildWordLensCtx(bookLang));
+          setTimeout(() => {
+            void refreshSectionGlosses(doc, vs, buildWordLensCtx(bookLang));
+          }, 200);
         }
       }
     }
@@ -863,7 +871,11 @@ const FoliateViewer: React.FC<{
     // one-time "Downloading…" toast fire again for it.
     wordLensToastShownRef.current = false;
     for (const { doc } of contents) {
-      if (doc) void refreshSectionGlosses(doc, vs, buildWordLensCtx(bookLang));
+      if (doc) {
+        setTimeout(() => {
+          void refreshSectionGlosses(doc, vs, buildWordLensCtx(bookLang));
+        }, 200);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [viewSettings?.wordLensEnabled, viewSettings?.wordLensLevel, viewSettings?.wordLensHintLang]);

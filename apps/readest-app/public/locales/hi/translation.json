@@ -1818,6 +1818,6 @@
   "Open Toolbar": "टूलबार खोलें",
   "Double Click to Select Word": "शब्द चुनने के लिए डबल क्लिक करें",
   "Double Tap to Select Word": "शब्द चुनने के लिए डबल टैप करें",
-  "Co-selectable Options": "सह-चयन योग्य विकल्प",
-  "Link": "लिंक"
+  "Can be co-selected with Translate": "अनुवाद के साथ सह-चयन योग्य",
+  "Can be co-selected with Dictionary": "शब्दकोश के साथ सह-चयन योग्य"
 }

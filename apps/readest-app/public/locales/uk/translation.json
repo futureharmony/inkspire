@@ -1884,6 +1884,6 @@
   "Open Toolbar": "Відкрити панель інструментів",
   "Double Click to Select Word": "Подвійний клік для виділення слова",
   "Double Tap to Select Word": "Подвійне натискання для виділення слова",
-  "Co-selectable Options": "Спільно виділені опції",
-  "Link": "Зв'язок"
+  "Can be co-selected with Translate": "Можна вибрати одночасно з Перекладом",
+  "Can be co-selected with Dictionary": "Можна вибрати одночасно зі Словником"
 }

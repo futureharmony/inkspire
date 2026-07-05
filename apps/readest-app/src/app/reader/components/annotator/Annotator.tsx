@@ -699,7 +699,10 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
       if (!data || data.bookKey !== bookKey || data.type !== 'iframe-double-click') return;
       const renderer = view?.renderer;
       const contents = renderer?.getContents?.() ?? [];
-      const content = contents.find((c) => c.index === renderer?.primaryIndex) ?? contents[0];
+      const content =
+        data.sectionIndex !== undefined
+          ? contents.find((c) => c.index === data.sectionIndex)
+          : (contents.find((c) => c.index === renderer?.primaryIndex) ?? contents[0]);
       const doc = content?.doc;
       const index = content?.index;
       if (!doc || index === undefined) return;

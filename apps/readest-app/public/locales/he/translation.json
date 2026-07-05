@@ -1851,6 +1851,6 @@
   "Open Toolbar": "פתח סרגל כלים",
   "Double Click to Select Word": "לחיצה כפולה לבחירת מילה",
   "Double Tap to Select Word": "הקשה כפולה לבחירת מילה",
-  "Co-selectable Options": "אפשרויות לבחירה משותפת",
-  "Link": "קישור"
+  "Can be co-selected with Translate": "ניתן לבחירה יחד עם תרגום",
+  "Can be co-selected with Dictionary": "ניתן לבחירה יחד עם מילון"
 }

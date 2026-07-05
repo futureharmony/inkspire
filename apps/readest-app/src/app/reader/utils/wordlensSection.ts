@@ -63,8 +63,8 @@ export const refreshSectionGlosses = async (
     if (refreshGen.get(doc) !== myGen) return; // a newer refresh superseded us
     if (!index) return;
     if (source === 'zh' && !isJiebaReady()) {
-      void initJieba();
-      return;
+      await initJieba();
+      if (refreshGen.get(doc) !== myGen) return;
     }
     const model = buildSectionTextModel(doc);
     const occ = planGlosses(model.text, index, {

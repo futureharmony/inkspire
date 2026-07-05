@@ -1818,6 +1818,6 @@
   "Open Toolbar": "Άνοιγμα γραμμής εργαλείων",
   "Double Click to Select Word": "Διπλό κλικ για επιλογή λέξης",
   "Double Tap to Select Word": "Διπλό πάτημα για επιλογή λέξης",
-  "Co-selectable Options": "Επιλογές συνδυαστικής επιλογής",
-  "Link": "Σύνδεσμος"
+  "Can be co-selected with Translate": "Μπορεί να επιλεγεί μαζί με τη Μετάφραση",
+  "Can be co-selected with Dictionary": "Μπορεί να επιλεγεί μαζί με το Λεξικό"
 }

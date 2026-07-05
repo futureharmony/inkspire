@@ -1785,6 +1785,6 @@
   "Open Toolbar": "打開工具欄",
   "Double Click to Select Word": "雙擊選詞",
   "Double Tap to Select Word": "雙擊選詞",
-  "Co-selectable Options": "可同時選中項",
-  "Link": "關聯"
+  "Can be co-selected with Translate": "可與翻譯同時選中",
+  "Can be co-selected with Dictionary": "可與詞典同時選中"
 }
