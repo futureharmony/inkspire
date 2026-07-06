@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import * as React from 'react';
 import { MdChevronRight } from 'react-icons/md';
 import { useState, useRef, useEffect, Suspense, useCallback } from 'react';
-import { ReadonlyURLSearchParams, useSearchParams } from 'next/navigation';
+import { ReadonlyURLSearchParams, useRouter, useSearchParams } from 'next/navigation';
 
 import { Book } from '@/types/book';
 import { AppService, DeleteAction } from '@/types/system';
@@ -99,6 +99,8 @@ import ImportFromFolderDialog, {
   ImportFromFolderResult,
 } from './components/ImportFromFolderDialog';
 import ImportFromUrlDialog from './components/ImportFromUrlDialog';
+import NowPlayingBar from './components/NowPlayingBar';
+import { ttsSessionManager } from '@/services/tts';
 import { convertToEpubWithWorker } from '@/services/send/conversion/conversionWorker';
 import { getClipOptions } from '@/services/send/clipOptions';
 import { invoke } from '@tauri-apps/api/core';
@@ -153,6 +155,10 @@ const LibraryPageWithSearchParams = () => {
 
 const LibraryPageContent = ({ searchParams }: { searchParams: ReadonlyURLSearchParams | null }) => {
   const router = useAppRouter();
+  // Opening the reader is a heavy render that overruns the View Transition
+  // DOM-update budget (TimeoutError, Sentry READEST-9), so navigate to it with
+  // the plain router; `router` above keeps transitions for lighter navigation.
+  const readerRouter = useRouter();
   const { envConfig, appService } = useEnv();
   const { token, user } = useAuth();
   const {
@@ -566,10 +572,10 @@ const LibraryPageContent = ({ searchParams }: { searchParams: ReadonlyURLSearchP
       const bookIds = pendingNavigationBookIds;
       setPendingNavigationBookIds(null);
       if (bookIds.length > 0) {
-        navigateToReader(router, bookIds);
+        navigateToReader(readerRouter, bookIds);
       }
     }
-  }, [pendingNavigationBookIds, appService, router]);
+  }, [pendingNavigationBookIds, appService, readerRouter]);
 
   useEffect(() => {
     if (isInitiating.current) return;
@@ -1027,6 +1033,9 @@ const LibraryPageContent = ({ searchParams }: { searchParams: ReadonlyURLSearchP
             book.coverDownloadedAt = null;
           }
           await updateBook(envConfig, book);
+          if (ttsSessionManager.getSessionByHash(book.hash)) {
+            await ttsSessionManager.stopActive('deleted');
+          }
           clearBookData(book.hash);
           if (syncBooks) pushLibrary();
         }
@@ -1636,6 +1645,7 @@ const LibraryPageContent = ({ searchParams }: { searchParams: ReadonlyURLSearchP
               style={{
                 paddingRight: `${insets.right}px`,
                 paddingLeft: `${insets.left}px`,
+                paddingBottom: 'var(--now-playing-inset, 0px)',
               }}
             >
               <DropIndicator />
@@ -1664,6 +1674,7 @@ const LibraryPageContent = ({ searchParams }: { searchParams: ReadonlyURLSearchP
             <LibraryEmptyState onImport={handleImportBooksFromFiles} />
           </div>
         ))}
+      <NowPlayingBar isSelectMode={isSelectMode} />
       {showDetailsBook && (
         <BookDetailModal
           isOpen={!!showDetailsBook}

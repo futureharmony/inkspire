@@ -76,5 +76,7 @@
   "Double Click to Select Word": "Double Click to Select Word",
   "Double Tap to Select Word": "Double Tap to Select Word",
   "Can be co-selected with Translate": "Can be co-selected with Translate",
-  "Can be co-selected with Dictionary": "Can be co-selected with Dictionary"
+  "Can be co-selected with Dictionary": "Can be co-selected with Dictionary",
+  "{{count}} results_one": "{{count}} result",
+  "{{count}} results_other": "{{count}} results"
 }

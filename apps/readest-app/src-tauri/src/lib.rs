@@ -294,6 +294,16 @@ fn is_updater_disabled() -> bool {
     updater_disabled()
 }
 
+// Record the WebView engine/version (parsed from the app's User-Agent) so Sentry
+// events can be correlated with WebView version. Called once from
+// `NativeAppService.init()`; no-op when Sentry is disabled.
+#[tauri::command]
+fn set_webview_info(user_agent: String) {
+    if let Some((engine, version)) = sentry_config::parse_webview_info(&user_agent) {
+        sentry_config::set_webview_info(engine, version);
+    }
+}
+
 #[derive(Clone, serde::Serialize)]
 #[allow(dead_code)]
 struct SingleInstancePayload {
@@ -321,6 +331,15 @@ pub fn run() {
                 // the OS as "Linux"; relabel it "Android" (and recover the Android
                 // version from the kernel string) so events group correctly.
                 before_send: Some(std::sync::Arc::new(|mut event| {
+                    // Drop known-benign browser noise (e.g. View Transition
+                    // skipped/aborted) before it is reported.
+                    if event.exception.values.iter().any(|ex| {
+                        ex.value
+                            .as_deref()
+                            .is_some_and(sentry_config::is_ignored_browser_error)
+                    }) {
+                        return None;
+                    }
                     if let Some(sentry::protocol::Context::Os(os)) = event.contexts.get_mut("os") {
                         if let Some(name) = sentry_config::corrected_os_name(
                             std::env::consts::OS,
@@ -335,6 +354,16 @@ pub fn run() {
                                 os.version = Some(version);
                             }
                         }
+                    }
+                    // Tag the WebView engine/version (reported by the app at
+                    // startup) so crashes can be correlated with it.
+                    if let Some((engine, version)) = sentry_config::webview_info() {
+                        event
+                            .tags
+                            .insert("webview.engine".to_string(), engine.clone());
+                        event
+                            .tags
+                            .insert("webview.version".to_string(), version.clone());
                     }
                     Some(event)
                 })),
@@ -365,6 +394,7 @@ pub fn run() {
             upload_file,
             get_environment_variable,
             get_executable_dir,
+            set_webview_info,
             #[cfg(desktop)]
             is_updater_disabled,
             allow_paths_in_scopes,
