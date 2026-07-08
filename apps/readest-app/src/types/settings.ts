@@ -143,6 +143,11 @@ export interface WebDAVSettings {
   // Wall-clock millisecond timestamp of the last successful end-to-end
   // sync, surfaced in the WebDAV settings sub-page.
   lastSyncedAt?: number;
+  // Device-local wall-clock millis of when this provider was made the
+  // selected cloud sync backend on THIS device. Anchors the mixed-fleet
+  // detection probe: any native /api/sync row newer than this means
+  // another device is still writing the gated channels.
+  providerSelectedAt?: number;
 }
 
 /**
@@ -164,6 +169,36 @@ export interface GoogleDriveSettings {
   strategy?: KOSyncStrategy;
   deviceId?: string;
   lastSyncedAt?: number;
+  /** See {@link WebDAVSettings.providerSelectedAt}. */
+  providerSelectedAt?: number;
+}
+
+/**
+ * S3-compatible object-store file-sync settings — the third file-sync
+ * backend alongside {@link WebDAVSettings} and {@link GoogleDriveSettings},
+ * sharing the same engine, sub-toggles, and strategy vocabulary. Covers any
+ * SigV4 endpoint: Cloudflare R2, AWS S3, MinIO, Backblaze B2. Addressing is
+ * path-style (`<endpoint>/<bucket>/<key>`). Credentials live here like
+ * WebDAV's (same encrypted cross-device credential-sync semantics).
+ */
+export interface S3Settings {
+  enabled: boolean;
+  /** Service endpoint origin, e.g. `https://<account-id>.r2.cloudflarestorage.com`. */
+  endpoint: string;
+  /** SigV4 region; 'auto' works for R2/MinIO, AWS wants the bucket region. */
+  region?: string;
+  bucket: string;
+  accessKeyId: string;
+  secretAccessKey: string;
+  syncProgress?: boolean;
+  syncNotes?: boolean;
+  syncBooks?: boolean;
+  fullSync?: boolean;
+  strategy?: KOSyncStrategy;
+  deviceId?: string;
+  lastSyncedAt?: number;
+  /** See {@link WebDAVSettings.providerSelectedAt}. */
+  providerSelectedAt?: number;
 }
 
 /**
@@ -260,7 +295,6 @@ export interface SystemSettings {
   swipeBrightnessGesture: boolean;
   hardwarePageTurner: HardwarePageTurnerSettings;
   alwaysShowStatusBar: boolean;
-  alwaysInForeground: boolean;
   openLastBooks: boolean;
   lastOpenBooks: string[];
   autoImportBooksOnOpen: boolean;
@@ -334,6 +368,7 @@ export interface SystemSettings {
   hardcover: HardcoverSettings;
   webdav: WebDAVSettings;
   googleDrive: GoogleDriveSettings;
+  s3: S3Settings;
 
   aiSettings: AISettings;
   /**

@@ -4,7 +4,7 @@ import clsx from 'clsx';
 import * as React from 'react';
 import { MdChevronRight } from 'react-icons/md';
 import { useState, useRef, useEffect, Suspense, useCallback } from 'react';
-import { ReadonlyURLSearchParams, useRouter, useSearchParams } from 'next/navigation';
+import { ReadonlyURLSearchParams, useSearchParams } from 'next/navigation';
 
 import { Book } from '@/types/book';
 import { AppService, DeleteAction } from '@/types/system';
@@ -22,6 +22,15 @@ import { eventDispatcher } from '@/utils/event';
 import { ProgressPayload } from '@/utils/transfer';
 import { throttle } from '@/utils/throttle';
 import { transferManager } from '@/services/transferManager';
+import {
+  getCloudSyncProvider,
+  isReadestCloudStorageActive,
+  cloudProviderDisplayName,
+} from '@/services/sync/cloudSyncProvider';
+import {
+  runActiveFileBookDownload,
+  runActiveFileBookUpload,
+} from '@/services/sync/file/runLibrarySync';
 import { getDirPath, getFilename, joinPaths } from '@/utils/path';
 import { parseOpenWithFiles } from '@/helpers/openWith';
 import { isTauriAppPlatform, isWebAppPlatform } from '@/services/environment';
@@ -155,10 +164,6 @@ const LibraryPageWithSearchParams = () => {
 
 const LibraryPageContent = ({ searchParams }: { searchParams: ReadonlyURLSearchParams | null }) => {
   const router = useAppRouter();
-  // Opening the reader is a heavy render that overruns the View Transition
-  // DOM-update budget (TimeoutError, Sentry READEST-9), so navigate to it with
-  // the plain router; `router` above keeps transitions for lighter navigation.
-  const readerRouter = useRouter();
   const { envConfig, appService } = useEnv();
   const { token, user } = useAuth();
   const {
@@ -572,10 +577,10 @@ const LibraryPageContent = ({ searchParams }: { searchParams: ReadonlyURLSearchP
       const bookIds = pendingNavigationBookIds;
       setPendingNavigationBookIds(null);
       if (bookIds.length > 0) {
-        navigateToReader(readerRouter, bookIds);
+        navigateToReader(router, bookIds);
       }
     }
-  }, [pendingNavigationBookIds, appService, readerRouter]);
+  }, [pendingNavigationBookIds, appService, router]);
 
   useEffect(() => {
     if (isInitiating.current) return;
@@ -942,6 +947,20 @@ const LibraryPageContent = ({ searchParams }: { searchParams: ReadonlyURLSearchP
 
   const handleBookUpload = useCallback(
     async (book: Book, _syncBooks = true) => {
+      // Route the explicit action to the selected cloud provider: while
+      // WebDAV / Google Drive is active the Readest Cloud transfer queue is
+      // gated and would only answer with the "paused" notice.
+      if (getCloudSyncProvider(useSettingsStore.getState().settings) !== 'readest') {
+        const ok = await runActiveFileBookUpload(envConfig, book);
+        eventDispatcher.dispatch('toast', {
+          type: ok ? 'info' : 'error',
+          timeout: 2000,
+          message: ok
+            ? _('Book uploaded: {{title}}', { title: book.title })
+            : _('Failed to upload book: {{title}}', { title: book.title }),
+        });
+        return ok;
+      }
       // Use transfer queue for uploads - priority 1 for manual uploads (higher priority)
       const transferId = transferManager.queueUpload(book, 1);
       if (transferId) {
@@ -954,6 +973,19 @@ const LibraryPageContent = ({ searchParams }: { searchParams: ReadonlyURLSearchP
         });
         return true;
       }
+      // An explicit Upload action must never silently no-op: explain the
+      // provider gate when it is the reason the queue refused the book.
+      const currentSettings = useSettingsStore.getState().settings;
+      if (!isReadestCloudStorageActive(currentSettings)) {
+        const provider = getCloudSyncProvider(currentSettings);
+        eventDispatcher.dispatch('toast', {
+          type: 'info',
+          timeout: 5000,
+          message: _('Uploads to Readest Cloud are paused while {{provider}} sync is selected', {
+            provider: cloudProviderDisplayName(provider),
+          }),
+        });
+      }
       return false;
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -963,6 +995,20 @@ const LibraryPageContent = ({ searchParams }: { searchParams: ReadonlyURLSearchP
   const handleBookDownload = useCallback(
     async (book: Book, downloadOptions: { redownload?: boolean; queued?: boolean } = {}) => {
       const { redownload = false, queued = false } = downloadOptions;
+      // Same provider routing as handleBookUpload — this path is also how a
+      // not-yet-local book gets fetched when the user opens it.
+      if (getCloudSyncProvider(useSettingsStore.getState().settings) !== 'readest') {
+        const ok = await runActiveFileBookDownload(envConfig, book);
+        if (ok) await updateBook(envConfig, book);
+        eventDispatcher.dispatch('toast', {
+          type: ok ? 'info' : 'error',
+          timeout: 2000,
+          message: ok
+            ? _('Book downloaded: {{title}}', { title: book.title })
+            : _('Failed to download book: {{title}}', { title: book.title }),
+        });
+        return ok;
+      }
       if (redownload || !queued) {
         try {
           await appService?.downloadBook(book, false, redownload, (progress) => {
@@ -1645,7 +1691,6 @@ const LibraryPageContent = ({ searchParams }: { searchParams: ReadonlyURLSearchP
               style={{
                 paddingRight: `${insets.right}px`,
                 paddingLeft: `${insets.left}px`,
-                paddingBottom: 'var(--now-playing-inset, 0px)',
               }}
             >
               <DropIndicator />

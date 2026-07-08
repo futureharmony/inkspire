@@ -210,6 +210,8 @@ export interface BookLayout {
   scrollingOverlap: number;
   allowScript: boolean;
   hideScrollbar: boolean;
+  /* Auto Scroll (#4998) speed as a percentage; 100 = AUTO_SCROLL_BASE_PX_PER_SEC. */
+  autoScrollSpeed: number;
 }
 
 export interface BookStyle {
@@ -318,7 +320,6 @@ export interface TTSConfig {
   ttsRate: number;
   ttsVoice: string;
   ttsLocation: string;
-  showTTSBar: boolean;
   ttsHighlightOptions: TTSHighlightOptions;
   ttsHighlightGranularity: TTSHighlightGranularity;
   ttsMediaMetadata: TTSMediaMetadataMode;
