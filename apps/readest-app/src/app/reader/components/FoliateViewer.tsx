@@ -71,6 +71,7 @@ import { useBookCoverAutoSave } from '../hooks/useAutoSaveBookCover';
 import { useDiscordPresence } from '@/hooks/useDiscordPresence';
 import { manageSyntaxHighlighting } from '@/utils/highlightjs';
 import { getViewInsets } from '@/utils/insets';
+import { footerReservesBand } from '../utils/footerBand';
 import { handleA11yNavigation } from '@/utils/a11y';
 import { isCJKLang } from '@/utils/lang';
 import { getLocale } from '@/utils/misc';
@@ -787,7 +788,12 @@ const FoliateViewer: React.FC<{
   }, []);
 
   const applyMarginAndGap = () => {
-    const viewSettings = getViewSettings(bookKey)!;
+    // Invoked from effects/observers that can fire after the book is torn down,
+    // when getViewSettings(bookKey) returns null. The `!` assertion hid that, so
+    // the reads below (getViewInsets, viewSettings.showHeader) crashed on null
+    // (READEST-2V). Bail: there is no view left to lay out.
+    const viewSettings = getViewSettings(bookKey);
+    if (!viewSettings) return;
     const viewState = getViewState(bookKey);
     const bookData = getBookData(bookKey);
     const viewInsets = getViewInsets(viewSettings);
@@ -795,7 +801,11 @@ const FoliateViewer: React.FC<{
     const showDoubleBorderHeader = showDoubleBorder && viewSettings.showHeader;
     const showDoubleBorderFooter = showDoubleBorder && viewSettings.showFooter;
     const showTopHeader = viewSettings.showHeader && !viewSettings.vertical;
-    const showBottomFooter = viewSettings.showFooter && !viewSettings.vertical;
+    // The bottom band is reserved only while the footer displays something
+    // there (and never in scrolled mode, where the info floats in pills) —
+    // see footerReservesBand. Otherwise the empty reservation shows as a
+    // full-width blank bar that steals space from the book text.
+    const showBottomFooter = footerReservesBand(viewSettings) && !viewSettings.vertical;
     const moreTopInset = showTopHeader ? Math.max(0, 16 - insets.top) : 0;
     const miniPlayerClearance = viewState?.ttsEnabled
       ? TTS_MINI_PLAYER_CLEARANCE + gridInsets.bottom * 0.33
@@ -942,6 +952,14 @@ const FoliateViewer: React.FC<{
     viewSettings?.scrolled,
     viewSettings?.noContinuousScroll,
     viewState?.ttsEnabled,
+    // footerReservesBand inputs: the band must collapse/return live when the
+    // user flips these settings.
+    viewSettings?.showStickyProgressBar,
+    viewSettings?.showRemainingTime,
+    viewSettings?.showRemainingPages,
+    viewSettings?.showProgressInfo,
+    viewSettings?.showCurrentTime,
+    viewSettings?.showCurrentBatteryStatus,
   ]);
 
   return (

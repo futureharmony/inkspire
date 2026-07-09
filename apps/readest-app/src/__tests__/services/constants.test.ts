@@ -605,13 +605,11 @@ describe('services/constants', () => {
       expect(typeof DEFAULT_VIEW_CONFIG.showCurrentBatteryStatus).toBe('boolean');
       expect(typeof DEFAULT_VIEW_CONFIG.showBatteryPercentage).toBe('boolean');
       expect(typeof DEFAULT_VIEW_CONFIG.use24HourClock).toBe('boolean');
-      expect(typeof DEFAULT_VIEW_CONFIG.tapToToggleFooter).toBe('boolean');
       expect(typeof DEFAULT_VIEW_CONFIG.showPaginationButtons).toBe('boolean');
     });
 
     it('has progress style settings', () => {
       expect(typeof DEFAULT_VIEW_CONFIG.progressStyle).toBe('string');
-      expect(typeof DEFAULT_VIEW_CONFIG.progressInfoMode).toBe('string');
     });
 
     it('has animation and eink flags', () => {

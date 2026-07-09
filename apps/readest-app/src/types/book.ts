@@ -274,7 +274,6 @@ export interface BookLanguage {
   convertChineseVariant: ConvertChineseVariant;
 }
 
-export type ProgressBarMode = 'remaining' | 'progress' | 'battery' | 'time' | 'all' | 'none';
 // 'push' slides the whole strip; 'slide' and 'curl' layer the outgoing page
 // over the still incoming page (Apple Books style, needs View Transitions).
 export type PageTurnStyle = 'push' | 'slide' | 'curl';
@@ -296,11 +295,9 @@ export interface ViewConfig {
   use24HourClock: boolean;
   showCurrentBatteryStatus: boolean;
   showBatteryPercentage: boolean;
-  tapToToggleFooter: boolean;
   showPaginationButtons: boolean;
   progressStyle: 'percentage' | 'fraction' | 'reference';
   referencePageCount: number;
-  progressInfoMode: ProgressBarMode;
 
   animated: boolean;
   pageTurnStyle: PageTurnStyle;
