@@ -1,7 +1,15 @@
 import clsx from 'clsx';
 import React, { useEffect, useState } from 'react';
-import { MdAdd, MdDelete, MdDragIndicator, MdEdit, MdInfoOutline } from 'react-icons/md';
+import {
+  MdAdd,
+  MdDelete,
+  MdDragIndicator,
+  MdEdit,
+  MdInfoOutline,
+  MdStorefront,
+} from 'react-icons/md';
 import { IoMdCloseCircleOutline } from 'react-icons/io';
+import DictionaryMarketplace from './DictionaryMarketplace';
 import {
   DndContext,
   closestCenter,
@@ -280,6 +288,7 @@ const CustomDictionaries: React.FC<CustomDictionariesProps> = ({ onBack }) => {
 
   const { selectFiles } = useFileSelector(appService, _);
   const [importing, setImporting] = useState(false);
+  const [showMarketplace, setShowMarketplace] = useState(false);
   // Android only: the dictionary app remembered for the browser-excluding
   // system-lookup chooser (issue #4559). Stays null on every other platform
   // and whenever nothing has been remembered, so the reset row below only
@@ -693,6 +702,14 @@ const CustomDictionaries: React.FC<CustomDictionariesProps> = ({ onBack }) => {
     rows.length > 0 &&
     (rows[0]?.id === dragOverId || rows[rows.length - 1]?.id === dragOverId);
 
+  if (showMarketplace) {
+    return (
+      <div className='my-4 w-full'>
+        <DictionaryMarketplace onBack={() => setShowMarketplace(false)} />
+      </div>
+    );
+  }
+
   return (
     <div className='w-full'>
       <SubPageHeader
@@ -802,7 +819,7 @@ const CustomDictionaries: React.FC<CustomDictionariesProps> = ({ onBack }) => {
         </SettingsRow>
       </BoxedList>
 
-      <div className='mt-4 grid grid-cols-1 gap-2 sm:grid-cols-2'>
+      <div className='mt-4 grid grid-cols-1 gap-2 sm:grid-cols-3'>
         <button
           type='button'
           onClick={handleImport}
@@ -864,6 +881,34 @@ const CustomDictionaries: React.FC<CustomDictionariesProps> = ({ onBack }) => {
             <MdAdd className='h-3.5 w-3.5' />
           </span>
           <span className='line-clamp-1'>{_('Add Web Search')}</span>
+        </button>
+        {/* Get Dictionaries — opens the marketplace sub-page listing curated
+            open-source dictionaries available for download. */}
+        <button
+          type='button'
+          onClick={() => setShowMarketplace(true)}
+          className={clsx(
+            'eink-bordered group flex h-11 items-center justify-center gap-2.5',
+            'border-base-200 bg-base-100 rounded-lg border px-4',
+            'text-base-content text-sm font-medium',
+            'transition-colors duration-150',
+            'hover:border-base-300 hover:bg-base-300/40',
+            'active:bg-base-200/80',
+            'focus-visible:ring-base-content/15 focus-visible:outline-none focus-visible:ring-2',
+          )}
+        >
+          <span
+            className={clsx(
+              'eink-inverted',
+              'flex h-5 w-5 items-center justify-center rounded-full',
+              'bg-base-200 text-base-content/60',
+              'transition-colors duration-150',
+              'group-hover:bg-base-content group-hover:text-base-100',
+            )}
+          >
+            <MdStorefront className='h-3.5 w-3.5' />
+          </span>
+          <span className='line-clamp-1'>{_('Get Dictionaries')}</span>
         </button>
       </div>
 
