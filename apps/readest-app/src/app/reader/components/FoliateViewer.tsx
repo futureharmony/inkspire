@@ -136,8 +136,17 @@ const FoliateViewer: React.FC<{
   const doubleClickDisabled = useRef(!!viewSettings?.disableDoubleClick);
   const [toastMessage, setToastMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [navigating, setNavigating] = useState(false);
+  const navSpinnerTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [scrollMargins, setScrollMargins] = useState({ top: 0, bottom: 0 });
   const docLoaded = useRef(false);
+
+  // A pending anti-flash timer must not fire setNavigating on an unmounted component.
+  useEffect(() => {
+    return () => {
+      if (navSpinnerTimerRef.current) clearTimeout(navSpinnerTimerRef.current);
+    };
+  }, []);
 
   useAutoFocus<HTMLDivElement>({ ref: containerRef });
 
@@ -474,6 +483,20 @@ const FoliateViewer: React.FC<{
     };
   };
 
+  const navigateStartHandler = useCallback(() => {
+    if (navSpinnerTimerRef.current) clearTimeout(navSpinnerTimerRef.current);
+    // Delay so instant same-section jumps don't flash the spinner.
+    navSpinnerTimerRef.current = setTimeout(() => setNavigating(true), 200);
+  }, []);
+
+  const navigateEndHandler = useCallback(() => {
+    if (navSpinnerTimerRef.current) {
+      clearTimeout(navSpinnerTimerRef.current);
+      navSpinnerTimerRef.current = null;
+    }
+    setNavigating(false);
+  }, []);
+
   const stabilizedHandler = useCallback(() => {
     setLoading(false);
     // Layout/relayout warichu after paginator has set column-width via columnize()
@@ -635,6 +658,8 @@ const FoliateViewer: React.FC<{
     onStabilized: stabilizedHandler,
     onRelocate: progressRelocateHandler,
     onRendererRelocate: docRelocateHandler,
+    onNavigateStart: navigateStartHandler,
+    onNavigateEnd: navigateEndHandler,
   });
 
   useEffect(() => {
@@ -1010,7 +1035,7 @@ const FoliateViewer: React.FC<{
       )}
       <BrightnessOverlay visible={overlayVisible} level={overlayLevel} />
       <ParagraphControl bookKey={bookKey} viewRef={viewRef} gridInsets={gridInsets} />
-      {((!docLoaded.current && loading) || viewState?.loading) && (
+      {((!docLoaded.current && loading) || navigating || viewState?.loading) && (
         <div className='absolute left-0 top-0 z-10 flex h-full w-full items-center justify-center'>
           <Spinner loading={true} />
         </div>
