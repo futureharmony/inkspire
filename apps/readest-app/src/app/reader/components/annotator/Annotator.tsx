@@ -1148,6 +1148,11 @@ const Annotator: React.FC<{ bookKey: string; contentInsets: Insets }> = ({
         if (shouldDismiss) {
           handleDismissPopupAndSelection();
         }
+      } else if (showDictionaryPopup || showDeepLPopup) {
+        // A dictionary or translator popup is already open (opened by a toolbar
+        // button click). The effect re-fires because those flags are in the
+        // dependency array; do NOT call handleShowAnnotPopup() / handleQuickAction()
+        // here — that would immediately close the popup we just opened.
       } else if (enableAnnotationQuickActions && annotationQuickAction && isTextSelected.current) {
         handleQuickAction();
       } else {

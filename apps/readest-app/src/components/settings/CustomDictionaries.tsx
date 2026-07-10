@@ -33,7 +33,7 @@ import { CSS } from '@dnd-kit/utilities';
 
 import { useEnv } from '@/context/EnvContext';
 import { useTranslation } from '@/hooks/useTranslation';
-import { useFileSelector } from '@/hooks/useFileSelector';
+import { useFileSelector, type SelectedFile } from '@/hooks/useFileSelector';
 import { useCustomDictionaryStore } from '@/store/customDictionaryStore';
 import { eventDispatcher } from '@/utils/event';
 import { evictProvider, isSystemDictionaryEnabled } from '@/services/dictionaries/registry';
@@ -53,6 +53,76 @@ import {
 } from '@/services/dictionaries/webSearchTemplates';
 import SubPageHeader from './SubPageHeader';
 import { BoxedList, SettingsRow, SettingsSelect, Tips } from './primitives';
+
+/**
+ * Detect zip archives in the selected files list, extract dictionary-relevant
+ * entries from each, and return the expanded flat list of SelectedFile objects.
+ * Non-zip files are passed through unchanged.
+ */
+const DICT_FILE_EXTENSIONS = new Set([
+  'mdx',
+  'mdd',
+  'ifo',
+  'idx',
+  'dict',
+  'dz',
+  'syn',
+  'index',
+  'slob',
+  'css',
+]);
+
+async function expandZipFiles(files: SelectedFile[]): Promise<SelectedFile[]> {
+  const expanded: SelectedFile[] = [];
+  for (const selected of files) {
+    const name = selected.name ?? selected.file?.name ?? '';
+    const ext = name.split('.').pop()?.toLowerCase();
+    if (ext !== 'zip') {
+      expanded.push(selected);
+      continue;
+    }
+    // Extract dictionary files from the zip archive
+    let blob: Blob;
+    if (selected.file) {
+      blob = selected.file;
+    } else if (selected.path) {
+      try {
+        const { readFile } = await import('@tauri-apps/plugin-fs');
+        const bytes = await readFile(selected.path);
+        blob = new Blob([bytes]);
+      } catch {
+        expanded.push(selected);
+        continue;
+      }
+    } else {
+      expanded.push(selected);
+      continue;
+    }
+    try {
+      const { BlobReader, ZipReader, BlobWriter } = await import('@zip.js/zip.js');
+      const reader = new ZipReader(new BlobReader(blob));
+      const entries = await reader.getEntries();
+      await reader.close();
+      for (const entry of entries) {
+        if (entry.directory) continue;
+        const filename = entry.filename.split('/').pop() ?? entry.filename;
+        if (!filename) continue;
+        // Skip macOS resource-fork files
+        if (filename.startsWith('._') || filename === '.DS_Store') continue;
+        const fileExt = filename.split('.').pop()?.toLowerCase() ?? '';
+        if (!DICT_FILE_EXTENSIONS.has(fileExt)) continue;
+        const writer = new BlobWriter();
+        const fileBlob = await entry.getData!(writer);
+        const file = new File([fileBlob], filename, { type: 'application/octet-stream' });
+        expanded.push({ file, name: filename });
+      }
+    } catch {
+      // If zip extraction fails, pass the original file through unchanged
+      expanded.push(selected);
+    }
+  }
+  return expanded;
+}
 
 /** Dictionary popup font-size multipliers, surfaced as percentages (#4443). */
 const FONT_SCALE_OPTIONS = [
@@ -533,7 +603,10 @@ const CustomDictionaries: React.FC<CustomDictionariesProps> = ({ onBack }) => {
       }
       // User cancelled the picker — staying silent is the right call here.
       if (result.files.length === 0) return;
-      const importResult = await appService?.importDictionaries(result.files, dictionaries);
+      // Expand any zip archives in the selection so users can directly import
+      // a compressed dictionary bundle without manually extracting it first.
+      const expandedFiles = await expandZipFiles(result.files);
+      const importResult = await appService?.importDictionaries(expandedFiles, dictionaries);
       if (!importResult) {
         eventDispatcher.dispatch('toast', {
           type: 'error',
