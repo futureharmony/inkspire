@@ -15,12 +15,13 @@ import {
   TTSHighlightOptions,
   TTSVoicesGroup,
 } from '@/services/tts';
+import { DEFAULT_SENTENCE_GAP_SEC } from '@/services/tts/EdgeTTSClient';
+import { DEFAULT_PARAGRAPH_GAP_SEC } from '@/services/tts/TTSController';
 import { eventDispatcher } from '@/utils/event';
 import { genSSMLRaw, parseSSMLLang } from '@/utils/ssml';
 import { throttle } from '@/utils/throttle';
 import { isCfiInLocation } from '@/utils/cfi';
 import { getLocale } from '@/utils/misc';
-import { invokeUseBackgroundAudio } from '@/utils/bridge';
 import { estimateTTSTime } from '@/utils/ttsTime';
 import { releaseUnblockAudio, ttsMediaBridge, unblockAudio } from '@/services/tts/ttsMediaBridge';
 import { getBookHashFromKey, ttsSessionManager } from '@/services/tts/TTSSessionManager';
@@ -667,9 +668,6 @@ export const useTTSControl = ({ bookKey, onRequestHidePanel }: UseTTSControlProp
               .then(() => ttsController.shutdown())
               .catch((error) => console.warn('TTS shutdown failed:', error))
           : Promise.resolve(),
-        appService?.isIOSApp
-          ? invokeUseBackgroundAudio({ enabled: false }).catch(() => {})
-          : Promise.resolve(),
         Promise.resolve()
           .then(() => ttsMediaBridge.unbind())
           .catch(() => {}),
@@ -746,9 +744,10 @@ export const useTTSControl = ({ bookKey, onRequestHidePanel }: UseTTSControlProp
         // HTMLMediaElement is playing, and Edge playback no longer has one.
         unblockAudio();
         void ensureSharedAudioContext();
-        if (appService?.isIOSApp) {
-          await invokeUseBackgroundAudio({ enabled: true });
-        }
+        // No use_background_audio here: on iOS the native-tts media session
+        // claims the audio session itself on activation (non-mixable
+        // .playback/.spokenAudio). The old call set .mixWithOthers, which
+        // disqualifies the app from Now Playing and fought the claim.
         setTtsClientsInitialized(false);
 
         setShowIndicator(true);
@@ -790,6 +789,8 @@ export const useTTSControl = ({ bookKey, onRequestHidePanel }: UseTTSControlProp
 
           ttsController.setLang(lang);
           ttsController.setRate(viewSettings.ttsRate);
+          ttsController.setSentenceGap(viewSettings.ttsSentenceGap ?? DEFAULT_SENTENCE_GAP_SEC);
+          ttsController.setParagraphGap(viewSettings.ttsParagraphGap ?? DEFAULT_PARAGRAPH_GAP_SEC);
           ttsController.speak(ssml, oneTime, () => handleStop(bookKey));
           ttsController.setTargetLang(getTTSTargetLang() || '');
         }
@@ -848,6 +849,10 @@ export const useTTSControl = ({ bookKey, onRequestHidePanel }: UseTTSControlProp
 
   const handleSupportsPlaybackInfo = useCallback(() => {
     return ttsControllerRef.current?.supportsPlaybackInfo() ?? false;
+  }, []);
+
+  const handleSupportsGapControl = useCallback(() => {
+    return ttsControllerRef.current?.supportsGapControl() ?? false;
   }, []);
 
   // Playback callbacks
@@ -918,6 +923,18 @@ export const useTTSControl = ({ bookKey, onRequestHidePanel }: UseTTSControlProp
     [],
   );
 
+  // Inter-sentence gap: read live at schedule time by the controller, so
+  // changing it must not stop/restart playback like handleSetRate does.
+  const handleSetSentenceGap = useCallback((sec: number) => {
+    ttsControllerRef.current?.setSentenceGap(sec);
+  }, []);
+
+  // Paragraph gap: applies to every TTS client (not Edge-only), read live by
+  // the controller when auto-advancing, so no stop/restart here either.
+  const handleSetParagraphGap = useCallback((sec: number) => {
+    ttsControllerRef.current?.setParagraphGap(sec);
+  }, []);
+
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const handleSetVoice = useCallback(
     throttle(async (voice: string, lang: string) => {
@@ -985,6 +1002,8 @@ export const useTTSControl = ({ bookKey, onRequestHidePanel }: UseTTSControlProp
     handleForward,
     handlePause,
     handleSetRate,
+    handleSetSentenceGap,
+    handleSetParagraphGap,
     handleSetVoice,
     handleGetVoices,
     handleGetVoiceId,
@@ -993,6 +1012,7 @@ export const useTTSControl = ({ bookKey, onRequestHidePanel }: UseTTSControlProp
     handleSeekTo,
     handleGetPlaybackInfo,
     handleSupportsPlaybackInfo,
+    handleSupportsGapControl,
     refreshTtsLang,
   };
 };
